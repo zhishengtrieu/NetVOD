@@ -4,6 +4,8 @@
  */
 namespace netvod\video\Serie;
 use netvod\video\Episode;
+use netvod\exception\InvalidPropertyNameException;
+use netvod\exception\NonEditablePropertyException;
 class Serie{
 
     private int $id;
