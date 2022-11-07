@@ -24,7 +24,7 @@ class Auth{
         $res=null;
         ConnectionFactory::makeConnection();
         $req = ConnectionFactory::$db->prepare(
-            "SELECT passwd, role FROM user WHERE email ='$email'"
+            "SELECT passwd FROM user WHERE email ='$email'"
         );
         $req->execute();
         $result = $req->fetch();
@@ -58,7 +58,7 @@ class Auth{
                 return false;
             }
         }
-        echo "gros probleme, on est pas cense arriver ici";
+        echo "L'enregistrement c'est mal déroulé";
         return false;
     }
 
