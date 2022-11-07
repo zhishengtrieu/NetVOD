@@ -29,7 +29,8 @@ class Auth{
         $result = $req->fetch();
         if (!self::emailLibre($email)){
             if (password_verify($password, $result[0])){
-                $res = new User($email, $password, $result[1]);
+                $res = new User($email, $password);
+                //$res = new User($email, $password, $result[1]);
                 $_SESSION['user'] = serialize($res);                
             }
         }
@@ -51,7 +52,6 @@ class Auth{
                     'email' => $email,
                     'password' => $password
                 ));
-                echo "L'utilisateur a bien été enregistré";
                 return true;
             }else{
                 return false;
