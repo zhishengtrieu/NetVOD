@@ -6,6 +6,7 @@ namespace netvod\video\Serie;
 use netvod\video\Episode;
 class Serie{
 
+    private int $id;
     private string $titre;
     private string $genre;
     private string $public;
@@ -13,15 +14,26 @@ class Serie{
     private string $dateSortieFilm;
     private string $dateSortiePlateforme;
     private int $nbEpisode;
+    private array $episodes;
 
-    public function __construct(string $titre, string $genre){
+    public function __construct(int $id, string $titre, string $genre){
+        $this->id = $id;
         $this->titre = $titre;
         $this->genre = $genre;
+        $this->nbEpisode = 0;
+        $this->episodes = array();
     }
+
+    public function ajouterEpisode(Episode $episode){
+        $this->episodes[] = $episode;
+        $nbEpisode++;
+    }
+
+
 
     public function __set($attribut, $valeur){
         if (property_exists($this, $attribut)){
-            if ($attribut == "titre" || $attribut == "genre" || $attribut == "public" || $attribut == "resume" || $attribut == "dateSortieFilm" || $attribut == "dateSortiePlateforme" || $attribut == "nbEpisode"){
+            if ($attribut == "titre" || $attribut == "genre" || $attribut == "public" || $attribut == "resume" || $attribut == "dateSortieFilm" || $attribut == "dateSortiePlateforme"){
                 $this->$attribut = $valeur;
             }else{
                 throw new NonEditablePropertyException($attribut);
