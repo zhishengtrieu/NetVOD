@@ -1,0 +1,9 @@
+{
+    "description": "le meilleur site de streaming de l'iut",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "netvod\\" : "src/classes"
+        }
+    }
+}
