@@ -42,20 +42,21 @@ class User{
         $this->VideosPreferees[] = $serie;
     }
 
-
+    /**
+     * 7. Page d’accueil d’un utilisateur : afficher ses séries préférées
+    * La page d’accueil d’un utilisateur affiche la liste des séries qu’il a ajouté dans ses préférences.
+    * La liste est cliquable : on peut afficher le détail d’une série à partir de cette liste.
+    * La page d’accueil est affichée automatiquement après le login, ou par click sur un bouton
+    * « retour à l’accueil » depuis toutes les pages.
+    */
+    
      
-    /*
-    7. Page d’accueil d’un utilisateur : afficher ses séries préférées
-    La page d’accueil d’un utilisateur affiche la liste des séries qu’il a ajouté dans ses préférences.
-    La liste est cliquable : on peut afficher le détail d’une série à partir de cette liste.
-    La page d’accueil est affichée automatiquement après le login, ou par click sur un bouton
-    « retour à l’accueil » depuis toutes les pages.
-
-    8. Lors du visionnage d’un épisode, ajouter automatiquement la série à la liste « en
-    cours » de l’utilisateur
-    Lorsqu’un épisode est visionné, la série contenant l’épisode est automatiquement ajoutée à la
-    liste « en cours » de l’utilisateur ; Cette liste apparaît sur la page d’accueil de l’utilisateur, de
-    façon similaire à la liste de préférence. 
+    /**
+    * 8. Lors du visionnage d’un épisode, ajouter automatiquement la série à la liste « en
+    * cours » de l’utilisateur
+    * Lorsqu’un épisode est visionné, la série contenant l’épisode est automatiquement ajoutée à la
+    * liste « en cours » de l’utilisateur ; Cette liste apparaît sur la page d’accueil de l’utilisateur, de
+    * façon similaire à la liste de préférence. 
     */
 }
 ?>
