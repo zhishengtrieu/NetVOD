@@ -20,6 +20,9 @@ class Dispatcher{
             case "signin" :
                 echo (new SigninAction())->execute();
                 break;
+            case "afficherCatalogue" :
+                echo (new AfficherCatalogueAction())->execute();
+                break;
             default:
                 echo "Bienvenue !";
         }
