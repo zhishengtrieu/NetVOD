@@ -18,6 +18,19 @@ class Episode{
         $this->path = $path;
     }
 
+    public function __set($attribut, $valeur){
+        if (property_exists($this, $attribut)){
+            if ($attribut == "id" || $attribut == "numero" || $attribut == "titre" || $attribut == "resume" || $attribut == "duree" || $attribut == "path"){
+                $this->$attribut = $valeur;
+            }else{
+                throw new NonEditablePropertyException($attribut);
+            }
+        }else{
+            throw new InvalidPropertyNameException($attribut);
+        }
+    }
+
+
 
 }
 ?>
