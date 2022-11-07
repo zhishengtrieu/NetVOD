@@ -23,7 +23,7 @@ class Header{
                         <li><a href="index.php?action=signin">Se connecter</a></li>
                     </ul>
                 </nav>
-                <p>Le meilleur site de streaming de tout l\'iut</p>
+                <p>Version wish de Netflix</p>
             </header>
     ';
     }
