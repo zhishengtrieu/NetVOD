@@ -28,9 +28,8 @@ class Serie{
 
     public function ajouterEpisode(Episode $episode){
         $this->episodes[] = $episode;
-        $nbEpisode++;
+        $this ->nbEpisode++;
     }
-
 
 
     public function __set($attribut, $valeur){
