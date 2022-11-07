@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 namespace netvod\episode;
+use netvod\exception\InvalidPropertyNameException;
+use netvod\exception\NonEditablePropertyException;
+
 class Episode{
     private int  $id;
     private int  $numero;
