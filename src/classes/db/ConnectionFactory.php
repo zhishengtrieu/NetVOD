@@ -17,7 +17,7 @@ class ConnectionFactory{
     public static function makeConnection(){
         if (self::$db == null){
             try{
-                self::$db = new \PDO('mysql:host=localhost;dbname=cours', 'root', '', $config=null);
+                self::$db = new \PDO('mysql:host=localhost;dbname=netvod', 'root', '', $config=null);
             }catch(\Exception $e){
                 die('Erreur : '.$e->getMessage());
             }
