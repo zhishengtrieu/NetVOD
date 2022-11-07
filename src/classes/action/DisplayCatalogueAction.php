@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace netvod\action;
 
 use netvod\render\CatalogueRenderer;
+use netvod\render\Renderer;
 use netvod\video\serie\Serie;
 use netvod\video\catalogue\Catalogue;
 use netvod\db\ConnectionFactory;
 use PDO;
 
 
-class AfficherCatalogueAction extends Action{
+class DisplayCatalogueAction extends Action{
 
     public function execute(): string{
         ConnectionFactory::makeConnection();
@@ -27,7 +28,9 @@ class AfficherCatalogueAction extends Action{
                         $serie = new Serie(intval($id),$titre);
                         $catalogue->ajouterSerie($serie);
                     }
-                    $res = (new CatalogueRenderer($catalogue))->render();
+                    $res = (new CatalogueRenderer($catalogue))->render(Renderer::COMPACT);
+            }else{
+                echo('Il faut se connecter avant de consulter les series du catalogue');
             }
         }
         return $res;

@@ -3,7 +3,8 @@
  * Liste de series
  */
 namespace netvod\video\catalogue;
-use netvod\video\Serie;
+use netvod\exception\InvalidPropertyNameException;
+use netvod\video\serie\Serie;
 class Catalogue{
 
     private array $series;
@@ -16,8 +17,12 @@ class Catalogue{
         $this->series[] = $serie;
     }
 
-    public function getSeries(){
-        return $this->series;
+    public function __get($attribut){
+        if (property_exists($this, $attribut)){
+            return $this->$attribut;
+        }else{
+            throw new InvalidPropertyNameException($attribut);
+        }
     }
 
 }

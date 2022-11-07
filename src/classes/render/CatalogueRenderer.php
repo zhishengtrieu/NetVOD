@@ -26,10 +26,10 @@ class CatalogueRenderer implements Renderer{
     }
 
     private function renderCompact():string{
-        $html = "Catalogue";
-        foreach ($this->catalogue as $serie){
-            $renderer = new SerieRenderer();
-            $html .= $renderer."<br>";
+        $html = "<h1>Catalogue</h1>";
+        foreach ($this->catalogue->series as $serie){
+            $renderer = new SerieRenderer($serie);
+            $html .= "<li><a href='?action=display-liste-episodes&id=$serie->id'> ".$renderer->render(Renderer::COMPACT)."</a></li>";
         }
         return $html;
     }

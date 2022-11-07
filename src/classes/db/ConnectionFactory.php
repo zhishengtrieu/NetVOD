@@ -18,6 +18,7 @@ class ConnectionFactory{
         if (self::$db == null){
             try{
                 self::$db = new \PDO('mysql:host=localhost;dbname=netvod', 'root', '', $config=null);
+                self::$db->prepare("SET NAMES 'utf8'")->execute();
             }catch(\Exception $e){
                 die('Erreur : '.$e->getMessage());
             }

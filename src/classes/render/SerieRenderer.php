@@ -27,15 +27,19 @@ class SerieRenderer implements Renderer{
         $html = "
         <div class='serie'>
             <div class='serie_title'>
-                <h3>{$this->serie->titre}</h3>
+                <li>{$this->serie->titre}</li>
             </div>
-
+        </div>
         ";
         return $html;
     }
 
     private function renderLong():string{
-        $html = "";
+        $html = "<h1>{$this->serie->titre}</h1>";
+        foreach ($this->serie->episodes as $ep){
+            $renderer = new EpisodeRenderer($ep);
+            $html .= "<li>".$renderer->render(Renderer::COMPACT)."</li>";
+        }
         return $html;
     }
 }

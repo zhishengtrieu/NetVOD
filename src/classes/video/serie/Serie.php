@@ -2,11 +2,10 @@
 /**
  * Une serie est une liste d'episodes
  */
-namespace netvod\video\Serie;
+namespace netvod\video\serie;
 use netvod\video\episode\Episode;
 use netvod\exception\InvalidPropertyNameException;
 use netvod\exception\NonEditablePropertyException;
-use netvod\db\ConnectionFactory;
 class Serie{
 
     private int $id;
@@ -19,7 +18,7 @@ class Serie{
     private int $nbEpisode;
     private array $episodes;
 
-    public function __construct(int $id, string $titre, string $genre=""){
+    public function __construct(int $id, string $titre, string $genre = ""){
         $this->id = $id;
         $this->titre = $titre;
         $this->genre = $genre;
@@ -59,7 +58,7 @@ class Serie{
     public static function find(int $id){
         $sql = "Select serie_id, serie.titre, descriptif, annee, date_ajout, episode.id from serie
         inner join episode on serie.id = episode.serie_id
-        where serie_id = $id"; 
+        where serie_id = $id";
         ConnectionFactory::makeConnection();
         $stmt = ConnectionFactory::$db->prepare($sql);
         $stmt->execute();

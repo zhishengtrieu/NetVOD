@@ -1,11 +1,12 @@
 <?php
 declare(strict_types=1);
 namespace netvod\dispatch;
-use netvod\action\AfficherCatalogueAction;
-use netvod\action\ActiveCompte;
+use netvod\action\DisplayCatalogueAction;
+use netvod\action\DisplayListeEpisodesAction;
 use netvod\render\Header;
 use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
+use netvod\action\DisplayEpisodeAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
@@ -18,10 +19,13 @@ class Dispatcher{
                 echo (new SigninAction())->execute();
                 break;
             case "afficherCatalogue" :
-                echo (new AfficherCatalogueAction())->execute();
+                echo (new DisplayCatalogueAction())->execute();
                 break;
             case "display-episode":
                 echo (new DisplayEpisodeAction())->execute();
+                break;
+            case "display-liste-episodes":
+                echo (new DisplayListeEpisodesAction())->execute();
                 break;
             default:
                 echo "Bienvenue !";
