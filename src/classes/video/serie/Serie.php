@@ -3,9 +3,10 @@
  * Une serie est une liste d'episodes
  */
 namespace netvod\video\Serie;
-use netvod\video\Episode;
+use netvod\video\episode\Episode;
 use netvod\exception\InvalidPropertyNameException;
 use netvod\exception\NonEditablePropertyException;
+use netvod\db\ConnectionFactory;
 class Serie{
 
     private int $id;
@@ -18,7 +19,7 @@ class Serie{
     private int $nbEpisode;
     private array $episodes;
 
-    public function __construct(int $id, string $titre, string $genre){
+    public function __construct(int $id, string $titre, string $genre=""){
         $this->id = $id;
         $this->titre = $titre;
         $this->genre = $genre;
@@ -51,6 +52,30 @@ class Serie{
             throw new InvalidPropertyNameException($attribut);
         }
     }
+
+    /**
+     * Permet de retrouver une serie a partir de son id et d'en retourner l'objet
+     */
+    public static function find(int $id){
+        $sql = "Select serie_id, serie.titre, descriptif, annee, date_ajout, episode.id from serie
+        inner join episode on serie.id = episode.serie_id
+        where serie_id = $id"; 
+        ConnectionFactory::makeConnection();
+        $stmt = ConnectionFactory::$db->prepare($sql);
+        $stmt->execute();
+        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $serie = new Serie($res[0]['serie_id'], $res[0]['titre']);
+        $serie->resume = $res[0]['descriptif'];
+        $serie->dateSortieFilm = $res[0]['annee'];
+        $serie->dateSortiePlateforme = $res[0]['date_ajout'];
+
+        foreach ($res as $episode){
+            $serie->ajouterEpisode(Episode::find($episode['id']));
+        }
+        return $serie;
+    }
+
 
 }
 ?>

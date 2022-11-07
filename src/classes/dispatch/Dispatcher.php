@@ -4,9 +4,6 @@ namespace netvod\dispatch;
 use netvod\action\AfficherCatalogueAction;
 use netvod\action\ActiveCompte;
 use netvod\render\Header;
-use netvod\action\AddPlaylistAction;
-use netvod\action\AddPodcastTrackAction;
-use netvod\action\DisplayPlaylistAction;
 use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
 class Dispatcher{
@@ -22,6 +19,9 @@ class Dispatcher{
                 break;
             case "afficherCatalogue" :
                 echo (new AfficherCatalogueAction())->execute();
+                break;
+            case "display-episode":
+                echo (new DisplayEpisodeAction())->execute();
                 break;
             default:
                 echo "Bienvenue !";
