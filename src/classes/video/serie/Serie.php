@@ -6,15 +6,16 @@ namespace netvod\video\serie;
 use netvod\video\episode\Episode;
 use netvod\exception\InvalidPropertyNameException;
 use netvod\exception\NonEditablePropertyException;
+use netvod\db\ConnectionFactory;
 class Serie{
 
     private int $id;
     private string $titre;
     private string $genre;
     private string $public;
-    private string $resume;
-    private string $dateSortieFilm;
-    private string $dateSortiePlateforme;
+    private string $descriptif;
+    private string $annee;
+    private string $dateAjout;
     private int $nbEpisode;
     private array $episodes;
 
@@ -22,6 +23,10 @@ class Serie{
         $this->id = $id;
         $this->titre = $titre;
         $this->genre = $genre;
+        $this->public = "";
+        $this->descriptif = "";
+        $this->annee = "";
+        $this->dateAjout = 2000;
         $this->nbEpisode = 0;
         $this->episodes = array();
     }
@@ -34,7 +39,7 @@ class Serie{
 
     public function __set($attribut, $valeur){
         if (property_exists($this, $attribut)){
-            if ($attribut == "titre" || $attribut == "genre" || $attribut == "public" || $attribut == "resume" || $attribut == "dateSortieFilm" || $attribut == "dateSortiePlateforme"){
+            if ($attribut == "titre" || $attribut == "genre" || $attribut == "public" || $attribut == "descriptif" || $attribut == "annee" || $attribut == "dateAjout"){
                 $this->$attribut = $valeur;
             }else{
                 throw new NonEditablePropertyException($attribut);
@@ -65,9 +70,9 @@ class Serie{
         $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         $serie = new Serie($res[0]['serie_id'], $res[0]['titre']);
-        $serie->resume = $res[0]['descriptif'];
-        $serie->dateSortieFilm = $res[0]['annee'];
-        $serie->dateSortiePlateforme = $res[0]['date_ajout'];
+        $serie->descriptif = $res[0]['descriptif'];
+        $serie->annee = $res[0]['annee'];
+        $serie->dateAjout = $res[0]['date_ajout'];
 
         foreach ($res as $episode){
             $serie->ajouterEpisode(Episode::find($episode['id']));

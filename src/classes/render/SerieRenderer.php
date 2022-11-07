@@ -20,6 +20,13 @@ class SerieRenderer implements Renderer{
                 $html = $this->renderLong();
                 break;
         }
+        //on doit permettre a l'user d'ajouter la serie a ses favoris
+        $html.= <<<END
+        <form action="?action=ajouter-favoris" method="POST">
+            <input type="hidden" name="id" value="{$this->serie->id}">
+            <input type="submit" value="Ajouter à mes préférences">
+        </form>
+        END;
         return $html;
     }
 
