@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace netvod\dispatch;
+use netvod\action\ActiveCompte;
 use netvod\render\Header;
 use netvod\action\AddPlaylistAction;
 use netvod\action\AddPodcastTrackAction;
@@ -17,6 +18,9 @@ class Dispatcher{
                 break;
             case "signin" :
                 echo (new SigninAction())->execute();
+                break;
+            case "cookie" :
+                echo (new ActiveCompte())->execute();
                 break;
             default:
                 echo "Bienvenue !";
