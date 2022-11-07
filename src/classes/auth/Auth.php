@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 namespace netvod\auth;
-session_start();
 use netvod\user\User;
 use netvod\db\ConnectionFactory;
 use netvod\audio\lists\Playlist;
