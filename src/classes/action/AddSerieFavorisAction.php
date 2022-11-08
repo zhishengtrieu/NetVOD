@@ -15,7 +15,7 @@ class AddSerieFavorisAction extends Action{
             if (isset($_SESSION['user'])) {
                 $user = unserialize($_SESSION['user']);
                 $id = $_POST['id'];
-                $serie = new Serie($id);
+                $serie = Serie::find($id);
                 $user->addSeriePreferee($serie);
                 $res = "Serie ajoutee aux favoris";
             }else{
