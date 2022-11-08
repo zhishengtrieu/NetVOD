@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace netvod\action;
 
 use netvod\auth\Auth;
-use netvod\db\ConnectionFactory;
 
 class AddUserAction extends Action
 {
@@ -19,31 +18,35 @@ class AddUserAction extends Action
                 if (isset($_POST['email']) and isset($_POST['pwd']) and isset($_POST['pwdd'])) {
                     if (Auth::register($_POST['email'], $_POST['pwd'])) {
                         echo "L'utilisateur a bien été enregistré <br>";
-                        setcookie("token", uniqid(),
-                            Time() + 60 * 60 * 24 * 365);
+                        if (!isset($_COOKIE['token'])) {
+                            setcookie("token", uniqid(),
+                                Time() + 60 * 60 * 24 * 365);
+                        }
                         $track_user_code = $_COOKIE['token'];
                         $url = "http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php?action=$track_user_code";
-
                         $res = " Bienvenu  Voici votre lien $email <br>";
-                        echo "<a href='$url'>$url</a>";
+                        echo "<a href>$url</a> onClick";
+
+
+
                     }
-                /** if (Auth::authenticate($_POST['email'], $_POST['pwd'])) {
-                 * if (isset($_COOKIE['token'])) {
-                 *
-                 * $db= ConnectionFactory::makeConnection();
-                 * $sql=("update user set id =1 where email=?");
-                 * $st=ConnectionFactory::$db->prepare($sql);
-                 * $var=$_POST['email'];
-                 * $st->bindParam(1,$var);
-                 * $st->execute();
-                 **/
-                /**    $sql = "update user set id =1 where email=? ";
-                 * $db = ConnectionFactory::makeConnection();
-                 * $st=$db->prepare($sql);
-                 * $st->execute([$var]);
-                 * $row=$st->fetch(\PDO::FETCH_ASSOC);
-                 * $st->execute();
-                 **/
+                    /** if (Auth::authenticate($_POST['email'], $_POST['pwd'])) {
+                     * if (isset($_COOKIE['token'])) {
+                     *
+                     * $db= ConnectionFactory::makeConnection();
+                     * $sql=("update user set id =1 where email=?");
+                     * $st=ConnectionFactory::$db->prepare($sql);
+                     * $var=$_POST['email'];
+                     * $st->bindParam(1,$var);
+                     * $st->execute();
+                     **/
+                    /**    $sql = "update user set id =1 where email=? ";
+                     * $db = ConnectionFactory::makeConnection();
+                     * $st=$db->prepare($sql);
+                     * $st->execute([$var]);
+                     * $row=$st->fetch(\PDO::FETCH_ASSOC);
+                     * $st->execute();
+                     **/
                 } else {
                     echo "L'utilisateur n'a pas pu être enregistré <br>";
                 }
@@ -65,4 +68,3 @@ class AddUserAction extends Action
     }
 }
 
-?>
