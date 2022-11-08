@@ -24,6 +24,7 @@ class AddCommentAction extends Action{
                     <option value="4">4 etoiles</option>
                     <option value="1">4.5 etoiles</option>
                     <option value="5">5 etoiles</option>
+                    <option value="5">RickRoll etoiles</option>
                 </select>
                 <input type="submit" value="Enregistrer le commentaire">
             </form>
