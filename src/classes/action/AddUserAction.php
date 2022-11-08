@@ -18,14 +18,15 @@ class AddUserAction extends Action
                 if (isset($_POST['email']) and isset($_POST['pwd']) and isset($_POST['pwdd'])) {
                     if (Auth::register($_POST['email'], $_POST['pwd'])) {
                         echo "L'utilisateur a bien été enregistré <br>";
+                        $user=$_POST["email"];
                         if (!isset($_COOKIE['token'])) {
                             setcookie("token", uniqid(),
                                 Time() + 60 * 60 * 24 * 365);
                         }
                         $track_user_code = $_COOKIE['token'];
-                        $url = "http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php?action=$track_user_code";
+                        $url = "http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php?action=$track_user_code&email=$user";
                         $res = " Bienvenu  Voici votre lien $email <br>";
-                        echo "<a href>$url</a> onClick";
+                        echo "<a href>$url</a>";
 
 
 
