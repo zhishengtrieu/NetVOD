@@ -24,14 +24,7 @@ class EpisodeRenderer implements Renderer{
     }
 
     private function renderCompact():string{
-        $html = "
-        <div class='episode'>
-            <div class='episode_title'>
-                <h3>{$this->episode->titre}</h3>
-            </div>
-
-        ";
-        return $html;
+        return $this->episode->titre;
     }
 
     private function renderLong():string{

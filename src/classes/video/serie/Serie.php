@@ -11,35 +11,35 @@ class Serie{
 
     private int $id;
     private string $titre;
-    private string $genre;
-    private string $public;
+    private array $genres;
+    private array $public;
     private string $descriptif;
     private string $annee;
     private string $dateAjout;
-    private int $nbEpisode;
+    private int $nbEpisodes;
     private array $episodes;
 
-    public function __construct(int $id, string $titre, string $genre = ""){
+    public function __construct(int $id, string $titre){
         $this->id = $id;
         $this->titre = $titre;
-        $this->genre = $genre;
-        $this->public = "";
+        $this->genres = array();
+        $this->public = array();
         $this->descriptif = "";
         $this->annee = "";
         $this->dateAjout = 2000;
-        $this->nbEpisode = 0;
+        $this->nbEpisodes = 0;
         $this->episodes = array();
     }
 
     public function ajouterEpisode(Episode $episode){
         $this->episodes[] = $episode;
-        $this ->nbEpisode++;
+        $this ->nbEpisodes++;
     }
 
 
     public function __set($attribut, $valeur){
         if (property_exists($this, $attribut)){
-            if ($attribut == "titre" || $attribut == "genre" || $attribut == "public" || $attribut == "descriptif" || $attribut == "annee" || $attribut == "dateAjout"){
+            if ($attribut == "titre" || $attribut == "genres" || $attribut == "public" || $attribut == "descriptif" || $attribut == "annee" || $attribut == "dateAjout"){
                 $this->$attribut = $valeur;
             }else{
                 throw new NonEditablePropertyException($attribut);

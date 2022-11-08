@@ -13,7 +13,9 @@ use netvod\action\AddUserAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
-        $track= $_COOKIE['token'];
+        
+        $track= isset($_COOKIE['token']) ? $_COOKIE['token'] : "token";
+        
         $action = isset($_GET['action']) ? $_GET['action'] : null;
         switch($action){
             case "add-user":
@@ -31,7 +33,7 @@ class Dispatcher{
             case "display-liste-episodes":
                 echo (new DisplayListeEpisodesAction())->execute();
                 break;
-            case "$track" :
+            case $track :
                 echo (new ActiveCompte())->execute();
                 break;
             default:

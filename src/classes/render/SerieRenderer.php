@@ -42,7 +42,16 @@ class SerieRenderer implements Renderer{
     }
 
     private function renderLong():string{
-        $html = "<h1>{$this->serie->titre}</h1>";
+        $html = "<h1>{$this->serie->titre}</h1>
+        <h2>{$this->serie->descriptif}</h2>
+        <h3>Date de sortie :{$this->serie->annee}</h3>
+        <h3>Date d'ajout :{$this->serie->dateAjout}</h3>
+        <h3>Nombre d'épisodes :{$this->serie->nbEpisodes}</h3>
+        <h3>Genres : ";
+        foreach($this->serie->genres as $genre){
+            $html.= $genre->nom.", ";
+        }
+        $html .= "</h3>";
         foreach ($this->serie->episodes as $ep){
             $renderer = new EpisodeRenderer($ep);
             $html .= "<li>".$renderer->render(Renderer::COMPACT)."</li>";
