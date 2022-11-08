@@ -25,11 +25,8 @@ class AddUserAction extends Action
                         $url = "http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php?action=$track_user_code";
 
                         $res = " Bienvenu  Voici votre lien $email <br>";
-                        echo "<a href>$url</a>";
+                        echo "<a href='$url'>$url</a>";
                     }
-
-                }
-
                 /** if (Auth::authenticate($_POST['email'], $_POST['pwd'])) {
                  * if (isset($_COOKIE['token'])) {
                  *
@@ -47,16 +44,13 @@ class AddUserAction extends Action
                  * $row=$st->fetch(\PDO::FETCH_ASSOC);
                  * $st->execute();
                  **/
-
-
+                } else {
+                    echo "L'utilisateur n'a pas pu être enregistré <br>";
+                }
             } else {
-                echo "L'utilisateur n'a pas pu être enregistré <br>";
+                echo "Mot de passe Incorect";
             }
-        } else {
-            echo "Mot de passe Incorect";
-        }
-
-        else {
+        }else {
             $res = <<<END
             <form action="?action=add-user" method="POST">
             <input type="email" name="email" placeholder="Email">
