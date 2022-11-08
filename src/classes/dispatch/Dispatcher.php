@@ -5,6 +5,8 @@ use netvod\action\ActiveCompte;
 use netvod\render\Header;
 use netvod\action\AddPlaylistAction;
 use netvod\action\AddPodcastTrackAction;
+use netvod\action\DisplayListeEpisodesAction;
+use netvod\action\DisplayCatalogueAction;
 use netvod\action\DisplayPlaylistAction;
 use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
@@ -35,7 +37,6 @@ class Dispatcher{
             default:
                 echo "Bienvenue !";
         }
-        END;
     }
 
 }
