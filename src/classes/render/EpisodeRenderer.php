@@ -24,11 +24,25 @@ class EpisodeRenderer implements Renderer{
     }
 
     private function renderCompact():string{
-        return $this->episode->titre;
+        $html = "
+        <div class='episode'>
+            <div class='episode_title'>
+                <h3><a href='?action=display-detail-episode&id={$this->episode->id}'>{$this->episode->titre}</a></h3>
+                <p>numero de l episode: {$this->episode->numero}, duree: {$this->episode->duree} minutes</p>
+        </div>
+        ";
+        return $html;
     }
 
     private function renderLong():string{
-        $html = "";
+        $html = "
+        <div class='episode'>
+            <div class='episode_title'>
+                <h3>{$this->episode->titre}</h3>
+                <h4>{$this->episode->resume}</h4>
+                <p>L'episode dure: {$this->episode->duree} minutes</p>
+        </div>
+        ";
         return $html;
     }
 }

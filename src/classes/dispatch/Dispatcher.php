@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace netvod\dispatch;
 use netvod\action\ActiveCompte;
+use netvod\action\DiplayDetailEpisodeAction;
 use netvod\render\Header;
 use netvod\action\AddPlaylistAction;
 use netvod\action\AddPodcastTrackAction;
@@ -35,6 +36,9 @@ class Dispatcher{
                 break;
             case $track :
                 echo (new ActiveCompte())->execute();
+                break;
+            case "display-detail-episode":
+                echo (new DiplayDetailEpisodeAction())->execute();
                 break;
             default:
                 echo "Bienvenue !";

@@ -29,7 +29,7 @@ class CatalogueRenderer implements Renderer{
         $html = "<h1>Catalogue</h1>";
         foreach ($this->catalogue->series as $serie){
             $renderer = new SerieRenderer($serie);
-            $html .= "<li><a href='?action=display-liste-episodes&id=$serie->id'> ".$renderer->render(Renderer::COMPACT)."</a></li>";
+            $html .= "<a href='?action=display-liste-episodes&id=$serie->id'> ".$renderer->render(Renderer::COMPACT)."</a>";
         }
         return $html;
     }
