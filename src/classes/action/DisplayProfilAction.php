@@ -5,7 +5,7 @@ namespace netvod\action;
 
 use netvod\db\ConnectionFactory;
 
-class Profil extends Action
+class DisplayProfilAction extends Action
 {
 
     public function execute(): string

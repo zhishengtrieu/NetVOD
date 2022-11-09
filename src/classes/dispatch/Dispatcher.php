@@ -9,9 +9,10 @@ use netvod\action\DisplayListeEpisodesAction;
 use netvod\action\DisplayCatalogueAction;
 use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
-use netvod\action\DisplayProfileAction;
+use netvod\action\DisplayHomeAction;
 use netvod\action\SetFavorisAction;
 use netvod\action\AddCommentAction;
+use netvod\action\DisplayProfilAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
@@ -40,7 +41,7 @@ class Dispatcher{
                 $res = (new ActiveCompte())->execute();
                 break;
             case "display-profil":
-                $res = (new DisplayProfileAction())->execute();
+                $res = (new DisplayProfilAction())->execute();
                 break;
             case "set-favoris" :
                 $res = (new SetFavorisAction())->execute();
@@ -53,6 +54,10 @@ class Dispatcher{
                 break;
             default:
                 $res = "<p>Bienvenue dans la version wish de Netflix !</p>";
+                if (isset($_SESSION['user'])){
+                    $res .= (new DisplayHomeAction())->execute();
+                    
+                }
         }
 
         echo    "<div id='content'>
