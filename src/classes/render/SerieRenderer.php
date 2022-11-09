@@ -37,19 +37,13 @@ class SerieRenderer implements Renderer{
     private function renderLong():string{
         $html = "<h1>{$this->serie->titre}</h1>
         <h2>{$this->serie->descriptif}</h2>
-        <h3>Date de sortie :{$this->serie->annee}</h3>
-        <h3>Date d'ajout :{$this->serie->dateAjout}</h3>
-        <h3>Nombre d'épisodes :{$this->serie->nbEpisodes}</h3>
+        <h3>Date de sortie : {$this->serie->annee}</h3>
+        <h3>Date d'ajout : {$this->serie->dateAjout}</h3>
+        <h3>Nombre d'épisodes : {$this->serie->nbEpisodes}</h3>
         <h3>Genres : ";
-        foreach($this->serie->genres as $genre){
-            $html.= $genre.", ";
-        }
-        $html .= "</h3>
+        $html .= implode(", ", $this->serie->genres) . "</h3>
         <h3>Public : ";
-        foreach($this->serie->public as $public){
-            $html.= $public.", ";
-        }
-        $html .= "</h3>";
+        $html .= implode(", ", $this->serie->public) . "</h3>";
         //on doit permettre a l'user d'ajouter la serie a ses favoris
         $html.= <<<END
         <form action="?action=ajouter-favoris" method="POST">

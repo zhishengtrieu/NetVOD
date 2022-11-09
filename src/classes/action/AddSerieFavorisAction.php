@@ -17,6 +17,7 @@ class AddSerieFavorisAction extends Action{
                 $id = $_POST['id'];
                 $serie = Serie::find($id);
                 $user->addSeriePreferee($serie);
+                $_SESSION['user'] = serialize($user);
                 $res = "Serie ajoutee aux favoris";
             }else{
                 $res = "Vous devez etre connecte pour ajouter une serie aux favoris";

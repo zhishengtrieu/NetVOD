@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace netvod\user;
 use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
+use netvod\video\serie\Serie;
 /**
  * un utilisateur possède plusieurs listes :
  * - une liste de videos preferees,
@@ -39,7 +40,11 @@ class User{
      * 
      */
     public function addSeriePreferee(Serie $serie){
-        $this->VideosPreferees[] = $serie;
+        if (!in_array($serie, $this->VideosPreferees)){
+            $this->VideosPreferees[] = $serie;
+        }else{
+            echo "Cette série est déjà dans votre liste de préférence";
+        }
     }
 
     public function addSerieEnCours(Serie $serie){

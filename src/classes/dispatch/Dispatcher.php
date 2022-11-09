@@ -9,6 +9,7 @@ use netvod\action\DisplayCatalogueAction;
 use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
 use netvod\action\DisplayProfileAction;
+use netvod\action\AddSerieFavorisAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
@@ -40,6 +41,9 @@ class Dispatcher{
                 break;
             case "display-profil":
                 echo (new DisplayProfileAction())->execute();
+                break;
+            case "ajouter-favoris" :
+                echo (new AddSerieFavorisAction())->execute();
                 break;
             default:
                 echo "Bienvenue !";

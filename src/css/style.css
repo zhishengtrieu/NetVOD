@@ -6,7 +6,10 @@ body{
     line-height: 1.5;
     margin: 0;
     padding: 0;
-    text-align: center;
+    text-align: center;	
+    background: URL("img/bg.jpg") center fixed;
+	background-repeat:no-repeat;
+	background-size:cover;
 }
 
 ul{
