@@ -15,8 +15,6 @@ class Profil extends Action
 
         if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user'])->email;
-            var_dump($user);
-
             if ($this->http_method == 'POST') {
                 if (isset($_POST['nom'])) {
                     if ($_POST['nom'] !== "") {
