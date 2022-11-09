@@ -17,15 +17,16 @@ use netvod\video\serie\Serie;
 class DisplayProfileAction{
     public function execute(): string{
         $res = "";
-        if($this->http_method == 'POST'){
-            if (isset($_SESSION['user'])){
-                $user = unserialize($_SESSION['user']);
-                foreach($user->VideosPreferees as $serie){
-                    $render = new SerieRenderer($serie);
-                    $res .= $render->render(Renderer::COMPACT);
-                }
+        if (isset($_SESSION['user'])){
+            $user = unserialize($_SESSION['user']);
+            foreach($user->VideosPreferees as $serie){
+                $render = new SerieRenderer($serie);
+                $res .= $render->render(Renderer::COMPACT);
             }
+        }else{
+            $res = "Vous devez vous connecter pour accéder à votre profil";
         }
+        
         return $res;
     }
 }

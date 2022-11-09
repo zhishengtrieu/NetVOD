@@ -22,6 +22,7 @@ class Header{
                         <li><a href="index.php?action=add-user">Inscription</a></li>
                         <li><a href="index.php?action=signin">Se connecter</a></li>
                         <li><a href="index.php?action=afficherCatalogue">Afficher le catalogue</a></li>
+                        <li><a href="index.php?action=display-profil">Afficher le profil</a></li>
                     </ul>
                 </nav>
                 <p>Version wish de Netflix</p>
