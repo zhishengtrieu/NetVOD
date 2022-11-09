@@ -13,19 +13,11 @@ class ActiveCompte extends Action
 
 
             $db = ConnectionFactory::makeConnection();
-            $sql = ("update user set id =1 where email=?");
+            $sql = ("update user set role =1 where email=?");
             $st = ConnectionFactory::$db->prepare($sql);
             $var = $_GET['email'];
             $st->bindParam(1, $var);
             $st->execute();
-
-            /**    $sql = "update user set id =1 where email=? ";
-             * $db = ConnectionFactory::makeConnection();
-             * $st=$db->prepare($sql);
-             * $st->execute([$var]);
-             * $row=$st->fetch(\PDO::FETCH_ASSOC);
-             * $st->execute();
-             **/
 
         } else {
             echo "lien expire";

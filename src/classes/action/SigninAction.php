@@ -18,19 +18,20 @@ class SigninAction extends Action
             if (isset($_POST['email']) and isset($_POST['pwd'])) {
                 $user = Auth::authenticate($_POST['email'], $_POST['pwd']);
                 $db = ConnectionFactory::makeConnection();
-                $sql = ("select id from user where email=?");
+                $sql = ("select role from user where email=?");
                 $st = ConnectionFactory::$db->prepare($sql);
                 $var = $_POST['email'];
                 $st->bindParam(1, $var);
                 $st->execute();
                 $row = $st->fetch();
-                $id = ($row['id']);
-                if ($id === 1) {
+                $role = ($row['role']);
+                if ($role === 1) {
                     if ($user != null) {
                         $res = " Bienvenu ! $email";
                     }
+                } else {
+                    $res = "Compte non validé !";
                 }
-
 
             }
         } else {
