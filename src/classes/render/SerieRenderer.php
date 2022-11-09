@@ -20,13 +20,6 @@ class SerieRenderer implements Renderer{
                 $html = $this->renderLong();
                 break;
         }
-        //on doit permettre a l'user d'ajouter la serie a ses favoris
-        $html.= <<<END
-        <form action="?action=ajouter-favoris" method="POST">
-            <input type="hidden" name="id" value="{$this->serie->id}">
-            <input type="submit" value="Ajouter à mes préférences">
-        </form>
-        END;
         return $html;
     }
 
@@ -49,9 +42,21 @@ class SerieRenderer implements Renderer{
         <h3>Nombre d'épisodes :{$this->serie->nbEpisodes}</h3>
         <h3>Genres : ";
         foreach($this->serie->genres as $genre){
-            $html.= $genre->nom.", ";
+            $html.= $genre.", ";
+        }
+        $html .= "</h3>
+        <h3>Public : ";
+        foreach($this->serie->public as $public){
+            $html.= $public.", ";
         }
         $html .= "</h3>";
+        //on doit permettre a l'user d'ajouter la serie a ses favoris
+        $html.= <<<END
+        <form action="?action=ajouter-favoris" method="POST">
+            <input type="hidden" name="id" value="{$this->serie->id}">
+            <input type="submit" value="Ajouter à mes préférences">
+        </form>
+        END;
         foreach ($this->serie->episodes as $ep){
             $renderer = new EpisodeRenderer($ep);
             $html .= $renderer->render(Renderer::COMPACT);

@@ -43,10 +43,12 @@ class Auth{
             return false;
         }else{
             if (self::emailLibre($email)) {
+                echo $email;
+                echo $password;
                 $password = password_hash($password, PASSWORD_DEFAULT);
                 ConnectionFactory::makeConnection();
                 $req = ConnectionFactory::$db->prepare(
-                    'INSERT INTO user(email, passwd) VALUES (:email, :password)'
+                    'INSERT INTO user VALUES (0, :email, :password, "", "")'
                 );
                 $req->execute(array(
                     'email' => $email,

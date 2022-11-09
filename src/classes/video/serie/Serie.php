@@ -77,6 +77,28 @@ class Serie{
         foreach ($res as $episode){
             $serie->ajouterEpisode(Episode::find($episode['id']));
         }
+
+        //on recupere les genres et publics vises
+        $sql = "Select libelle_genre from genre 
+        inner join serie_genre on genre.id_genre = serie_genre.id_genre
+        where id_serie = $id";
+        $stmt = ConnectionFactory::$db->prepare($sql);
+        $stmt->execute();
+        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($res as $genre){
+            $serie->genres[] = $genre['libelle_genre'];
+        }
+
+        $sql = "Select libelle_public from public
+        inner join serie_public on public.id_public = serie_public.id_public
+        where id_serie = $id";
+        $stmt = ConnectionFactory::$db->prepare($sql);
+        $stmt->execute();
+        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($res as $public){
+            $serie->public[] = $public['libelle_public'];
+        }
+        
         return $serie;
     }
 

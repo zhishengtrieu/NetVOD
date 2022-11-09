@@ -6,10 +6,9 @@ namespace netvod\action;
 use netvod\auth\Auth;
 use netvod\db\ConnectionFactory;
 
-class AddUserAction extends Action
-{
-    public function execute(): string
-    {
+class AddUserAction extends Action{
+
+    public function execute(): string{
         $res = "";
         if ($this->http_method == 'POST') {
             if (isset($_POST['email']) and isset($_POST['pwd']) and isset($_POST['pwdd'])) {
@@ -20,28 +19,23 @@ class AddUserAction extends Action
                     if (Auth::emailLibre($email)) {
                         if (Auth::register($email, $pss)) {
                             echo "L'utilisateur a bien été enregistré <br>";
-                            if (!isset($_COOKIE['token'])) {
-                                setcookie("token", uniqid(),
-                                    Time() + 60 * 60 * 24 * 365);
-                            }
-                            $track_user_code = $_COOKIE['token'];
-                            $url = "?action=$track_user_code&email=$email";
-                            $res = "Bienvenu  Voici votre lien $email <br>";
-                            echo "<a href='$url'>activer votre compte ici</a>";
+                        }else{
+                            echo "Pensez a mettre un mail valide et un mot de passe de plus de 10 caractères";
                         }
-                    } else {
-                        echo "L'utilisateur est déja présent dans notre base de donnée merci d'activer votre compte<br>";
+
+                        $track_user_code = uniqid() ;
                         if (!isset($_COOKIE['token'])) {
-                            setcookie("token", uniqid(),
+                            setcookie("token", $track_user_code,
                                 Time() + 60 * 60 * 24 * 365);
                         }
-                        $track_user_code = $_COOKIE['token'];
                         $url = "?action=$track_user_code&email=$email";
-                        $res = "Bienvenu  Voici votre lien $email <br>";
-                        echo "<a href='$url'>activer votre compte ici </a>";
+                        $res = "Bienvenu  Voici votre lien $email <br>
+                            <a href='$url'>activer votre compte ici</a>";
+                    } else {
+                        echo "L'utilisateur est déja présent dans notre base de donnée merci d'activer votre compte<br>";
                     }
                 } else {
-                    echo "Mot de passe Incorect";
+                    echo "Les mots de passe differents";
                 }
             } else {
                 echo "L'utilisateur n'a pas pu être enregistré <br>";
