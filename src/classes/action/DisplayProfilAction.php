@@ -38,7 +38,7 @@ class DisplayProfilAction extends Action
                 }
             } else {
                 $res = <<<END
-            <form action="?action=profil" method="POST">
+            <form action="?action=display-profil" method="POST">
             <input type="text" name="nom" placeholder="Rick">
             <input type="text" name="prenom" placeholder="Roll">
             <input type="submit" value="valider">
