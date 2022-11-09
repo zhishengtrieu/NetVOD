@@ -42,13 +42,13 @@ class User{
     public function addSeriePreferee(Serie $serie){
         if (!in_array($serie, $this->VideosPreferees)){
             $this->VideosPreferees[] = $serie;
-        }else{
-            echo "Cette série est déjà dans votre liste de préférence";
         }
     }
 
     public function addSerieEnCours(Serie $serie){
-        $this->VideosEnCours[] = $serie;
+        if (!in_array($serie, $this->VideosEnCours)){
+            $this->VideosEnCours[] = $serie;
+        }
     }
 
 }

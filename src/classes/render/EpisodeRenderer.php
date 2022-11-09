@@ -29,7 +29,7 @@ class EpisodeRenderer implements Renderer{
             <div class='episode_title'>
                 <h3>
                     <li>
-                    <a href='?action=display-detail-episode&id={$this->episode->id}'>{$this->episode->titre}</a>
+                    <a href='?action=display-episode&id={$this->episode->id}'>{$this->episode->titre}</a>
                     </li>
                 </h3>
                 <p>numero de l episode: {$this->episode->numero}, duree: {$this->episode->duree} minutes</p>

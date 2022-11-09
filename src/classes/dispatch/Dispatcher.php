@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace netvod\dispatch;
 use netvod\action\ActiveCompte;
-use netvod\action\DiplayDetailEpisodeAction;
+use netvod\action\DisplayEpisodeAction;
 use netvod\render\Header;
 use netvod\action\DisplayListeEpisodesAction;
 use netvod\action\DisplayCatalogueAction;
@@ -37,8 +37,6 @@ class Dispatcher{
             case $track :
                 $res = (new ActiveCompte())->execute();
                 break;
-            case "display-detail-episode":
-                $res = (new DiplayDetailEpisodeAction())->execute();
                 break;
             case "display-profil":
                 $res = (new DisplayProfileAction())->execute();

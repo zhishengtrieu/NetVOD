@@ -19,7 +19,13 @@ class DisplayProfileAction{
         $res = "";
         if (isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
+            $res .= "<h1>Ma liste de séries préférées</h1>";
             foreach($user->VideosPreferees as $serie){
+                $render = new SerieRenderer($serie);
+                $res .= $render->render(Renderer::COMPACT);
+            }
+            $res .= "<h1>Ma liste de série en cours</h1>";
+            foreach($user->VideosEnCours as $serie){
                 $render = new SerieRenderer($serie);
                 $res .= $render->render(Renderer::COMPACT);
             }

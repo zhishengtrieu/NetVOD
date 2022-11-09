@@ -26,6 +26,7 @@ header h1{
     padding: 0;
     grid-column: 1;
 }
+
 nav{
     grid-column: 2;
 }
@@ -66,6 +67,7 @@ nav li:hover {
 	position:absolute;
 	left: 50%;
 	transform:translate(-50%);
+    width: 70%;
 	background-color:rgb(207, 207, 207,0.8);
 	border-radius:10px;
     padding: 20px;

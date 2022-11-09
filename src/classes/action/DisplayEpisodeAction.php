@@ -11,9 +11,9 @@ use netvod\exception\AccessControlException;
 class DisplayEpisodeAction extends Action{
     public function execute(): string{
         $res = "";
-        if($this->http_method == 'POST'){
-            if (isset($_POST['id'])){
-                $id = (int) filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+        if($this->http_method == 'GET'){
+            if (isset($_GET['id'])){
+                $id = (int) $_GET['id'];
                 if (isset($_SESSION['user'])){
                     $user = unserialize($_SESSION['user']);
                     try{
@@ -28,19 +28,17 @@ class DisplayEpisodeAction extends Action{
                         */
                         $serie = Serie::find($episode->idSerie);
                         $user->addSerieEnCours($serie);
+                        $_SESSION['user'] = serialize($user);
                     }catch(AccessControlException $e){
                         $res = $e->getMessage();
                     }
                     
+                }else{
+                    echo('Il faut se connecter avant de consulter les series du catalogue');
                 }
+            }else{
+                echo('id invalide');
             }
-        }else{
-            $res = <<<END
-            <form action="?action=display-episode" method="POST">
-                <input type="number" name="id" placeholder="id">
-                <input type="submit" value="Afficher">
-            </form>
-            END;
         }
         return $res;
     }
