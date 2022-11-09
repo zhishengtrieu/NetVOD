@@ -31,7 +31,7 @@ class Auth{
             if (password_verify($password, $result[0])){
                 $res = new User($email, $password);
                 //$res = new User($email, $password, $result[1]);
-                $_SESSION['user'] = serialize($res);                
+                $_SESSION['user'] = serialize($res);
             }
         }
         return $res;
@@ -43,8 +43,6 @@ class Auth{
             return false;
         }else{
             if (self::emailLibre($email)) {
-                echo $email;
-                echo $password;
                 $password = password_hash($password, PASSWORD_DEFAULT);
                 ConnectionFactory::makeConnection();
                 $req = ConnectionFactory::$db->prepare(

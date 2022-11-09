@@ -10,6 +10,7 @@ use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
 use netvod\action\DisplayProfileAction;
 use netvod\action\AddSerieFavorisAction;
+use netvod\action\AddCommentAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
@@ -43,6 +44,9 @@ class Dispatcher{
                 break;
             case "ajouter-favoris" :
                 $res = (new AddSerieFavorisAction())->execute();
+                break;
+            case "ajouter-commentaire" :
+                $res = (new AddCommentAction())->execute();
                 break;
             default:
                 $res =  "<p>Bienvenue dans la version wish de Netflix !</p>";

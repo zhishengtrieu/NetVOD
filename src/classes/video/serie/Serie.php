@@ -38,6 +38,18 @@ class Serie{
         $this ->nbEpisodes++;
     }
 
+    public function calculerMoyenneNote() : int{
+        $sql = "Select AVG(note) from commentaire
+        inner join serie on commentaire.serie_id = serie.id
+        where serie_id = $this -> id";
+        ConnectionFactory::makeConnection();
+        $stmt = ConnectionFactory::$db->prepare($sql);
+        $stmt->execute();
+        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $res;
+    }
+
+
 
     public function __set($attribut, $valeur){
         if (property_exists($this, $attribut)){
