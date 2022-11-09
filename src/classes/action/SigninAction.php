@@ -25,7 +25,7 @@ class SigninAction extends Action
                 $st->execute();
                 $row = $st->fetch();
                 $role = ($row['role']);
-                if ($role === 1) {
+                if ($role == 1) {
                     if ($user != null) {
                         $res = " Bienvenu ! $email";
                     }
@@ -37,7 +37,7 @@ class SigninAction extends Action
         } else {
             $res = <<<END
             <form action="?action=signin" method="post">
-                <input type="text" name="email" placeholder="email">
+                <input type="email" name="email" placeholder="email">
                 <input type="password" name="pwd" placeholder="password">
                 <input type="submit" value="Se connecter">
             </form>
