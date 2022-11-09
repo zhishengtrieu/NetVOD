@@ -47,11 +47,16 @@ class SerieRenderer implements Renderer{
         $html .= implode(", ", $this->serie->genres) . "</h3>
         <h3>Public : ";
         $html .= implode(", ", $this->serie->public) . "</h3>";
-        //on doit permettre a l'user d'ajouter la serie a ses favoris
+        //on doit permettre a l'user d'ajouter ou retirer la serie a ses favoris
+        $user = unserialize($_SESSION['user']);
+        //on verifie si la serie est deja dans les favoris de l'user
+        //si on oui le bouton dit qu'il le retirera des favoris sinon il indique qu'il l'ajoutera
+        $action = $user->favoris($this->serie->id) ? "Retirer de" : "Ajouter à";
+        //on donne le formulaire 
         $html.= <<<END
-        <form action="?action=ajouter-favoris" method="POST">
+        <form action="?action=set-favoris" method="POST">
             <input type="hidden" name="id" value="{$this->serie->id}">
-            <input type="submit" value="Ajouter à mes préférences">
+            <input type="submit" value="$action mes préférences">
         </form>
         END;
         foreach ($this->serie->episodes as $ep){

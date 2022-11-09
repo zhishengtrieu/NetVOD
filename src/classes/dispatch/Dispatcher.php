@@ -4,14 +4,13 @@ namespace netvod\dispatch;
 use netvod\action\ActiveCompte;
 use netvod\action\DisplayEpisodeAction;
 use netvod\action\RechercherCatalogueAction;
-use netvod\action\Profil;
 use netvod\render\Header;
 use netvod\action\DisplayListeEpisodesAction;
 use netvod\action\DisplayCatalogueAction;
 use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
 use netvod\action\DisplayProfileAction;
-use netvod\action\AddSerieFavorisAction;
+use netvod\action\SetFavorisAction;
 use netvod\action\AddCommentAction;
 class Dispatcher{
     public function run(): void{
@@ -40,12 +39,11 @@ class Dispatcher{
             case $track :
                 $res = (new ActiveCompte())->execute();
                 break;
-                break;
             case "display-profil":
                 $res = (new DisplayProfileAction())->execute();
                 break;
-            case "ajouter-favoris" :
-                $res = (new AddSerieFavorisAction())->execute();
+            case "set-favoris" :
+                $res = (new SetFavorisAction())->execute();
                 break;
             case "ajouter-commentaire" :
                 $res = (new AddCommentAction())->execute();
@@ -53,11 +51,8 @@ class Dispatcher{
             case "rechercher" :
                 $res = (new RechercherCatalogueAction())->execute();
                 break;
-            case "profil" :
-                $res= (new Profil())->execute();
-                break;
             default:
-                $res =  "<p>Bienvenue dans la version wish de Netflix !</p>";
+                $res = "<p>Bienvenue dans la version wish de Netflix !</p>";
         }
 
         echo    "<div id='content'>
