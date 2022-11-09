@@ -26,7 +26,6 @@ class SigninAction extends Action
                 $row = $st->fetch();
                 $role = ($row['role']);
                 if ($role == 1) {
-                    if (isset($_SESSION["user"])) echo "salut";
                     if ($user != null) {
                         $res = " Bienvenu ! $email";
                     }
