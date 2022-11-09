@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace netvod\dispatch;
 use netvod\action\ActiveCompte;
 use netvod\action\DisplayEpisodeAction;
+use netvod\action\FiltrerCatalogueAction;
 use netvod\action\RechercherCatalogueAction;
 use netvod\render\Header;
 use netvod\action\DisplayListeEpisodesAction;
@@ -51,6 +52,9 @@ class Dispatcher{
                 break;
             case "rechercher" :
                 $res = (new RechercherCatalogueAction())->execute();
+                break;
+            case "filtrer-catalogue" :
+                $res = (new FiltrerCatalogueAction())->execute();
                 break;
             default:
                 $res = "<p>Bienvenue dans la version wish de Netflix !</p>";

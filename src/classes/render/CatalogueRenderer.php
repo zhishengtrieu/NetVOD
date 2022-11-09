@@ -47,7 +47,7 @@ class CatalogueRenderer implements Renderer{
         </form>
         END;
         $html .= <<<END
-            <form action="?action=afficherCatalogue" method="post">
+            <form action="?action=filtrer-catalogue" method="post">
                 <select name='genre'>
                     <option value="">Selectionner un genre</option>
                     <option value="action">Action</option>
