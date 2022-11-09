@@ -20,6 +20,9 @@ class SelecteurTri{
             case self::TRI_NB_GRAND_EPISODE:
                 $tri = new TriNbGrandEpisode();
             break;
+            case self::TRI_NB_PETIT_EPISODE:
+                $tri = new TriNbPetitEpisode();
+            break;
             default:
                 $tri = null;
         }
