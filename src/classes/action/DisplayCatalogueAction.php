@@ -28,9 +28,9 @@ class DisplayCatalogueAction extends Action{
                         $serie = new Serie(intval($id),$titre);
                         $catalogue->ajouterSerie($serie);
                     }
-                    $res = (new CatalogueRenderer($catalogue))->render(Renderer::COMPACT);
+                    $res .= (new CatalogueRenderer($catalogue))->render(Renderer::COMPACT);
             }else{
-                echo('Il faut se connecter avant de consulter les series du catalogue');
+                $res .= 'Il faut se connecter avant de consulter les series du catalogue';
             }
         }
         return $res;
