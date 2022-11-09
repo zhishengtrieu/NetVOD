@@ -25,7 +25,6 @@ class Header{
                         <li><a href="index.php?action=display-profil">Afficher le profil</a></li>
                     </ul>
                 </nav>
-                <p>Version wish de Netflix</p>
             </header>
     ';
     }

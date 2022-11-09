@@ -17,37 +17,43 @@ class Dispatcher{
         $track= isset($_COOKIE['token']) ? $_COOKIE['token'] : "token";
         
         $action = isset($_GET['action']) ? $_GET['action'] : null;
+        $res = "";
         switch($action){
             case "add-user":
-                echo (new AddUserAction())->execute();
+                $res = (new AddUserAction())->execute();
                 break;
             case "signin" :
-                echo (new SigninAction())->execute();
+                $res = (new SigninAction())->execute();
                 break;
             case "afficherCatalogue" :
-                echo (new DisplayCatalogueAction())->execute();
+                $res = (new DisplayCatalogueAction())->execute();
                 break;
             case "display-episode":
-                echo (new DisplayEpisodeAction())->execute();
+                $res = (new DisplayEpisodeAction())->execute();
                 break;
             case "display-liste-episodes":
-                echo (new DisplayListeEpisodesAction())->execute();
+                $res = (new DisplayListeEpisodesAction())->execute();
                 break;
             case $track :
-                echo (new ActiveCompte())->execute();
+                $res = (new ActiveCompte())->execute();
                 break;
             case "display-detail-episode":
-                echo (new DiplayDetailEpisodeAction())->execute();
+                $res = (new DiplayDetailEpisodeAction())->execute();
                 break;
             case "display-profil":
-                echo (new DisplayProfileAction())->execute();
+                $res = (new DisplayProfileAction())->execute();
                 break;
             case "ajouter-favoris" :
-                echo (new AddSerieFavorisAction())->execute();
+                $res = (new AddSerieFavorisAction())->execute();
                 break;
             default:
-                echo "Bienvenue !";
+                $res =  "<p>Bienvenue dans la version wish de Netflix !</p>";
         }
+
+        echo    "<div id='content'>
+                    $res
+                </div>";
+
     }
 
 }
