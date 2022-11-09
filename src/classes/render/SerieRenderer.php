@@ -54,7 +54,7 @@ class SerieRenderer implements Renderer{
         $html .= "</h3>";
         foreach ($this->serie->episodes as $ep){
             $renderer = new EpisodeRenderer($ep);
-            $html .= "<li>".$renderer->render(Renderer::COMPACT)."</li>";
+            $html .= $renderer->render(Renderer::COMPACT);
         }
         return $html;
     }
