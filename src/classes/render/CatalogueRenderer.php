@@ -46,6 +46,29 @@ class CatalogueRenderer implements Renderer{
           <input type='submit' value='trier'>
         </form>
         END;
+        $html .= <<<END
+            <form action="?action=afficherCatalogue" method="post">
+                <select name='genre'>
+                    <option value="">Selectionner un genre</option>
+                    <option value="action">Action</option>
+                    <option value="thriller">Thriller</option>
+                    <option value="anime">Anime</option>
+                    <option value="comedie">Comedie</option>
+                    <option value="romance">Romance</option>
+                    <option value="horreur">Horreur</option>
+                </select>
+                
+                <select name='public'>
+                    <option value="">Selectionner un public</option>
+                    <option value="enfants">Enfants</option>
+                    <option value="adolescents">Adolescents</option>
+                    <option value="familles">Familles</option>
+                    <option value="adultes">Adultes</option>
+                </select>
+
+          <input type='submit' value='filtrer'>
+        </form>
+        END;
         foreach ($this->catalogue->series as $serie){
             $renderer = new SerieRenderer($serie);
             $html .= "<a href='?action=display-liste-episodes&id=$serie->id'>".$renderer->render(Renderer::COMPACT)."</a>";
