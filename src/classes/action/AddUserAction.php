@@ -25,8 +25,8 @@ class AddUserAction extends Action
                                     Time() + 60 * 60 * 24 * 365);
                             }
                             $track_user_code = $_COOKIE['token'];
-                            $url = "http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php?action=$track_user_code&email=$email";
-                            $res = " Bienvenu  Voici votre lien $email <br>";
+                            $url = "?action=$track_user_code&email=$email";
+                            $res = "Bienvenu  Voici votre lien $email <br>";
                             echo "<a href='$url'>activer votre compte ici</a>";
                         }
                     } else {
@@ -36,8 +36,8 @@ class AddUserAction extends Action
                                 Time() + 60 * 60 * 24 * 365);
                         }
                         $track_user_code = $_COOKIE['token'];
-                        $url = "http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php?action=$track_user_code&email=$email";
-                        $res = " Bienvenu  Voici votre lien $email <br>";
+                        $url = "?action=$track_user_code&email=$email";
+                        $res = "Bienvenu  Voici votre lien $email <br>";
                         echo "<a href='$url'>activer votre compte ici </a>";
                     }
                 } else {
