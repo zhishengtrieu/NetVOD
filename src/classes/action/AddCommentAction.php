@@ -26,6 +26,7 @@ class AddCommentAction extends Action{
                     }
                     $_SESSION['user'] = serialize($user);
                 }
+
             } else {
                 $res = <<<END
                 <form action="?action=add-comment" method="POST">
