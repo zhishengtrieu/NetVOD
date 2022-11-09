@@ -4,6 +4,7 @@ namespace netvod\dispatch;
 use netvod\action\ActiveCompte;
 use netvod\action\DisplayEpisodeAction;
 use netvod\action\RechercherCatalogueAction;
+use netvod\action\Profil;
 use netvod\render\Header;
 use netvod\action\DisplayListeEpisodesAction;
 use netvod\action\DisplayCatalogueAction;
@@ -39,8 +40,6 @@ class Dispatcher{
             case $track :
                 $res = (new ActiveCompte())->execute();
                 break;
-            case "display-detail-episode":
-                $res = (new DiplayDetailEpisodeAction())->execute();
                 break;
             case "display-profil":
                 $res = (new DisplayProfileAction())->execute();
@@ -53,6 +52,9 @@ class Dispatcher{
                 break;
             case "rechercher" :
                 $res = (new RechercherCatalogueAction())->execute();
+                break;
+            case "profil" :
+                $res= (new Profil())->execute();
                 break;
             default:
                 $res =  "<p>Bienvenue dans la version wish de Netflix !</p>";
