@@ -14,12 +14,14 @@ use netvod\user\User;
 use netvod\exception\AccessControlException;
 use netvod\video\serie\Serie;
 
-class DisplayProfileAction{
+class DisplayHomeAction{
     public function execute(): string{
         $res = "";
         if (isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
-            $res .= "<h1>Ma liste de séries préférées</h1>";
+            $res .= "
+            <p>Vous êtes connecté en tant que $user->email.</p>
+            <h1>Ma liste de séries préférées</h1>";
             foreach($user->VideosPreferees as $serie){
                 $render = new SerieRenderer($serie);
                 $res .= $render->render(Renderer::COMPACT);
