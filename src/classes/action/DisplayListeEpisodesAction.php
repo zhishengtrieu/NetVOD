@@ -21,10 +21,10 @@ class DisplayListeEpisodesAction extends Action{
                     $serie = Serie::find($id);
                     $res = (new SerieRenderer($serie))->render(Renderer::LONG);
                 }else{
-                    echo('id invalide');
+                    $res .=('id invalide');
                 }
             }else{
-                echo('Il faut se connecter avant de consulter les series du catalogue');
+                $res .= 'Il faut se connecter avant de consulter les series du catalogue';
             }
         }
         return $res;

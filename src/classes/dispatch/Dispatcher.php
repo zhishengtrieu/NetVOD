@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace netvod\dispatch;
 use netvod\action\ActiveCompte;
 use netvod\action\DisplayEpisodeAction;
+use netvod\action\RechercherCatalogueAction;
 use netvod\render\Header;
 use netvod\action\DisplayListeEpisodesAction;
 use netvod\action\DisplayCatalogueAction;
@@ -46,6 +47,9 @@ class Dispatcher{
                 break;
             case "ajouter-commentaire" :
                 $res = (new AddCommentAction())->execute();
+                break;
+            case "rechercher" :
+                $res = (new RechercherCatalogueAction())->execute();
                 break;
             default:
                 $res = "<p>Bienvenue dans la version wish de Netflix !</p>";
