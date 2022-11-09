@@ -14,6 +14,7 @@ class Commentaire{
         $this -> note = $n;
     }
 
+
     public function __get($attribut){
         if (property_exists($this, $attribut)){
             return $this->$attribut;
