@@ -8,6 +8,7 @@ use netvod\render\Renderer;
 use netvod\video\serie\Serie;
 use netvod\video\catalogue\Catalogue;
 use netvod\db\ConnectionFactory;
+use netvod\video\tris\SelecteurTri;
 use PDO;
 
 
@@ -32,6 +33,10 @@ class DisplayCatalogueAction extends Action{
             }else{
                 $res .= 'Il faut se connecter avant de consulter les series du catalogue';
             }
+        }else{
+            $indice_tri = filter_var($_POST['tris'], FILTER_SANITIZE_NUMBER_INT);
+            $tri = SelecteurTri::selectionnerTri(intval($indice_tri));
+            $res .= $tri->trier();
         }
         return $res;
     }
