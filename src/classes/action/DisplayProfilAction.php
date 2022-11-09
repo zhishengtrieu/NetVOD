@@ -15,7 +15,7 @@ class DisplayProfilAction extends Action
 
         if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
-            var_dump($user);
+            $email = $user->email;
             if ($this->http_method == 'POST') {
                 if (isset($_POST['nom'])) {
                     if ($_POST['nom'] !== "") {
@@ -23,7 +23,7 @@ class DisplayProfilAction extends Action
                         $sql = ("update user set nom=? where email=?");
                         $st = ConnectionFactory::$db->prepare($sql);
                         $st->bindParam(1, $nom);
-                        $st->bindParam(2, $user->email);
+                        $st->bindParam(2, $email);
                         $st->execute();
                         $res="Changement Profil effecutée";
                     }
@@ -34,7 +34,7 @@ class DisplayProfilAction extends Action
                         $sqll = ("update user set prenom=? where email=?");
                         $st = ConnectionFactory::$db->prepare($sqll);
                         $st->bindParam(1, $ui);
-                        $st->bindParam(2, $user);
+                        $st->bindParam(2, $email);
                         $st->execute();
                         $res="Changement Profil effecutée";
                     }
