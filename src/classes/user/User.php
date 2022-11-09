@@ -60,7 +60,6 @@ class User{
     public function addSerieEnCours(Serie $serie){
         if (!in_array($serie, $this->VideosEnCours)){
             $this->VideosEnCours[] = $serie;
-
         }
     }
 
