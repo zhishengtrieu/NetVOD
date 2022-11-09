@@ -64,8 +64,8 @@ class AddUserAction extends Action
             }
 
         }
-    else {
-        $res = <<<END
+        else {
+            $res = <<<END
             <form action="?action=add-user" method="POST">
             <input type="email" name="email" placeholder="Email">
             <input type="password" name="pwd" placeholder="password">
@@ -74,7 +74,7 @@ class AddUserAction extends Action
             </form>
             END;
 
-    }
+        }
         return $res;
     }
 }
