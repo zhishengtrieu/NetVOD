@@ -17,6 +17,9 @@ class SelecteurTri{
             case self::TRI_ANTI_ALPHA:
                 $tri = new TriAntiAplha();
             break;
+            case self::TRI_NB_GRAND_EPISODE:
+                $tri = new TriNbGrandEpisode();
+            break;
             default:
                 $tri = null;
         }

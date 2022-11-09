@@ -2,6 +2,13 @@
 
 namespace netvod\video\tris;
 
+use netvod\db\ConnectionFactory;
+use netvod\render\CatalogueRenderer;
+use netvod\render\Renderer;
+use netvod\video\catalogue\Catalogue;
+use netvod\video\serie\Serie;
+use \PDO;
+
 class TriNbGrandEpisode implements Tri{
 
     public function trier(): string{
