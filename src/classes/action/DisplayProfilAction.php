@@ -24,6 +24,7 @@ class DisplayProfilAction extends Action
                         $st->bindParam(1, $nom);
                         $st->bindParam(2, $user);
                         $st->execute();
+                        $res="Changement Profil effecutée";
                     }
                 }
                 if (isset($_POST['prenom'])) {
@@ -34,13 +35,15 @@ class DisplayProfilAction extends Action
                         $st->bindParam(1, $ui);
                         $st->bindParam(2, $user);
                         $st->execute();
+                        $res="Changement Profil effecutée";
                     }
                 }
+
             } else {
                 $res = <<<END
             <form action="?action=display-profil" method="POST">
-            <input type="text" name="nom" placeholder="Rick">
-            <input type="text" name="prenom" placeholder="Roll">
+            <input type="text" name="nom" placeholder="Nom">
+            <input type="text" name="prenom" placeholder="Prenom">
             <input type="submit" value="valider">
             </form>
             END;
