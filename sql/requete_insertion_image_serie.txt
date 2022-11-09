@@ -1,0 +1,6 @@
+UPDATE serie set img = "lake.png" where id = 1;
+UPDATE serie set img = "water.png" where id = 2;
+UPDATE serie set img = "horses.png" where id = 3;
+UPDATE serie set img = "beach.png" where id = 4;
+UPDATE serie set img = "surf.png" where id = 5;
+UPDATE serie set img = "cars-by-night.png" where id = 6;
