@@ -12,6 +12,8 @@ use netvod\video\serie\Serie;
  */
 class User{
     private string $email;
+    private string $nom;
+    private string $prenom;
     private string $password;
     private array $VideosPreferees;
     private array $VideosVisionnees;
@@ -19,6 +21,8 @@ class User{
 
     public function __construct(string $email, string $password){
         $this->email = $email;
+        $this->nom = "";
+        $this->prenom = "";
         $this->password = $password;
         $this->VideosPreferees = [];
         $this->VideosVisionnees = [];
@@ -56,6 +60,7 @@ class User{
     public function addSerieEnCours(Serie $serie){
         if (!in_array($serie, $this->VideosEnCours)){
             $this->VideosEnCours[] = $serie;
+
         }
     }
 
