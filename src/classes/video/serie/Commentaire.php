@@ -14,7 +14,6 @@ class Commentaire{
         $this -> note = $n;
     }
 
-
     public function __get($attribut){
         if (property_exists($this, $attribut)){
             return $this->$attribut;
@@ -23,4 +22,11 @@ class Commentaire{
         }
     }
 
+    public function __set($attribut, $valeur){
+        if (property_exists($this, $attribut)){
+            $this->$attribut = $valeur;
+        }else{
+            throw new InvalidPropertyNameException($attribut);
+        }
+    }
 }
