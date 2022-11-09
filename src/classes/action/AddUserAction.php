@@ -20,19 +20,16 @@ class AddUserAction extends Action
                 if ($lolss === $pss) {
                     if (Auth::emailLibre($email)) {
                         if (Auth::register($email, $pss)) {
-                            echo "L'utilisateur a bien été enregistré <br>";
-                        } else {
-                            echo "Pensez a mettre un mail valide et un mot de passe de plus de 10 caractères";
-                        }
-
-                        $track_user_code = uniqid();
-                        if (!isset($_COOKIE['token'])) {
+                            $track_user_code = uniqid();
                             setcookie("token", $track_user_code,
                                 Time() + 60 * 60 * 24 * 365);
-                        }
-                        $url = "?action=$track_user_code&email=$email";
-                        $res == "Bienvenu  Voici votre lien $email <br>
+
+                            $url = "?action=$track_user_code&email=$email";
+                            $res = "Bienvenu  Voici votre lien $email <br>
                             <a href='$url'>activer votre compte ici</a>";
+                        } else {
+                            $res = "Pensez a mettre un mail valide et un mot de passe de plus de 10 caractères";
+                        }
                     } else {
                         $db = ConnectionFactory::makeConnection();
                         $sql = ("select role from user where email=?");
@@ -43,25 +40,24 @@ class AddUserAction extends Action
                         $row = $st->fetch();
                         $role = ($row['role']);
                         if ($role == 0) {
-                            echo "L'utilisateur est déja présent dans notre base de donnée merci d'activer votre compte<br>";
 
                             $track_user_code = uniqid();
                             setcookie("token", $track_user_code,
                                 Time() + 60 * 60 * 24 * 365);
 
                             $url = "?action=$track_user_code&email=$email";
-                            $res = "Bienvenu  Voici votre lien $email <br>
+                            $res = "L'utilisateur est déja présent dans notre base de donnée merci d'activer votre compte<br>
                             <a href='$url'>activer votre compte ici</a>";
 
 
                         } else {
-                            echo "Votre compte est déjà activer veuillez vous-connectez si vous voulez continuer";
-                            echo "<a href=https://www.youtube.com/watch?v=zWaymcVmJ-A>Aseje</a>";
+                            $res= "Votre compte est déjà activer veuillez vous-connectez si vous voulez continuer";
+
                         }
 
                     }
                 } else {
-                    echo "Les mots de passe differents";
+                    $res= "Les mots de passe differents";
                 }
             } else {
                 echo "L'utilisateur n'a pas pu être enregistré <br>";
