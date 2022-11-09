@@ -21,6 +21,8 @@ class User{
 
     public function __construct(string $email, string $password){
         $this->email = $email;
+        $this->nom = "";
+        $this->prenom = "";
         $this->password = $password;
         $this->VideosPreferees = [];
         $this->VideosVisionnees = [];
