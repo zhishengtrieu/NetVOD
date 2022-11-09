@@ -47,7 +47,7 @@ class Dispatcher{
                 $res = (new AddSerieFavorisAction())->execute();
                 break;
             case "ajouter-commentaire" :
-                $res = (new AddCommentaireAction())->execute();
+                $res = (new AddCommentAction())->execute();
                 break;
             default:
                 $res =  "<p>Bienvenue dans la version wish de Netflix !</p>";
