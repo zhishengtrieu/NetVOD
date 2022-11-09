@@ -8,6 +8,7 @@ use netvod\action\DisplayListeEpisodesAction;
 use netvod\action\DisplayCatalogueAction;
 use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
+use netvod\action\DisplayProfileAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
@@ -36,6 +37,9 @@ class Dispatcher{
                 break;
             case "display-detail-episode":
                 echo (new DiplayDetailEpisodeAction())->execute();
+                break;
+            case "display-profil":
+                echo (new DisplayProfileAction())->execute();
                 break;
             default:
                 echo "Bienvenue !";
