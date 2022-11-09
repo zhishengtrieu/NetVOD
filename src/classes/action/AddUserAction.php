@@ -9,50 +9,30 @@ class AddUserAction extends Action
 {
     public function execute(): string
     {
+        $res = "";
         if ($this->http_method == 'POST') {
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-            $pss = $_POST['pwd'];
-            $lolss = $_POST['pwdd'];
-            $res = "";
-            if ($lolss === $pss) {
-                if (isset($_POST['email']) and isset($_POST['pwd']) and isset($_POST['pwdd'])) {
-                    if (Auth::register($_POST['email'], $_POST['pwd'])) {
+            if (isset($_POST['email']) and isset($_POST['pwd']) and isset($_POST['pwdd'])) {
+                $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+                $pss = $_POST['pwd'];
+                $lolss = $_POST['pwdd'];
+                if ($lolss === $pss) {
+                
+                    if (Auth::register($email, $pss)) {
                         echo "L'utilisateur a bien été enregistré <br>";
-                        $user=$_POST["email"];
                         if (!isset($_COOKIE['token'])) {
                             setcookie("token", uniqid(),
                                 Time() + 60 * 60 * 24 * 365);
                         }
                         $track_user_code = $_COOKIE['token'];
-                        $url = "http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php?action=$track_user_code&email=$user";
+                        $url = "http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php?action=$track_user_code&email=$email";
                         $res = " Bienvenu  Voici votre lien $email <br>";
-                        echo "<a href>$url</a>";
-
-
-
+                        echo "<a href='$url'>activer votre compte ici</a>";
                     }
-                    /** if (Auth::authenticate($_POST['email'], $_POST['pwd'])) {
-                     * if (isset($_COOKIE['token'])) {
-                     *
-                     * $db= ConnectionFactory::makeConnection();
-                     * $sql=("update user set id =1 where email=?");
-                     * $st=ConnectionFactory::$db->prepare($sql);
-                     * $var=$_POST['email'];
-                     * $st->bindParam(1,$var);
-                     * $st->execute();
-                     **/
-                    /**    $sql = "update user set id =1 where email=? ";
-                     * $db = ConnectionFactory::makeConnection();
-                     * $st=$db->prepare($sql);
-                     * $st->execute([$var]);
-                     * $row=$st->fetch(\PDO::FETCH_ASSOC);
-                     * $st->execute();
-                     **/
                 } else {
-                    echo "L'utilisateur n'a pas pu être enregistré <br>";
+                    echo "Mot de passe Incorect";
                 }
             } else {
-                echo "Mot de passe Incorect";
+                echo "L'utilisateur n'a pas pu être enregistré <br>";
             }
         }else {
             $res = <<<END
