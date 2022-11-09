@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace netvod\render;
+use netvod\db\ConnectionFactory;
 use netvod\video\serie\Serie;
 
 class SerieRenderer implements Renderer{
@@ -24,11 +25,13 @@ class SerieRenderer implements Renderer{
     }
 
     private function renderCompact():string{
+        $serie = Serie::find($this->serie->id);
         $html = "
         <div class='serie'>
             <div class='serie_title'>
                 <li>{$this->serie->titre}</li>
             </div>
+            <img src='img/$serie->img' height='300' width='400'>
         </div>
         ";
         return $html;

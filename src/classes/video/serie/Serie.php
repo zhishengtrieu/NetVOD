@@ -15,6 +15,7 @@ class Serie{
     private array $public;
     private string $descriptif;
     private string $annee;
+    private string $img;
     private string $dateAjout;
     private int $nbEpisodes;
     private array $episodes;
@@ -25,6 +26,7 @@ class Serie{
         $this->genres = array();
         $this->public = array();
         $this->descriptif = "";
+        $this->annee = "";
         $this->annee = "";
         $this->dateAjout = 2000;
         $this->nbEpisodes = 0;
@@ -39,7 +41,7 @@ class Serie{
 
     public function __set($attribut, $valeur){
         if (property_exists($this, $attribut)){
-            if ($attribut == "titre" || $attribut == "genres" || $attribut == "public" || $attribut == "descriptif" || $attribut == "annee" || $attribut == "dateAjout"){
+            if ($attribut == "titre" || $attribut == "genres" || $attribut == "public" || $attribut == "descriptif" || $attribut == "img" || $attribut == "annee" || $attribut == "dateAjout"){
                 $this->$attribut = $valeur;
             }else{
                 throw new NonEditablePropertyException($attribut);
@@ -61,7 +63,7 @@ class Serie{
      * Permet de retrouver une serie a partir de son id et d'en retourner l'objet
      */
     public static function find(int $id){
-        $sql = "Select serie_id, serie.titre, descriptif, annee, date_ajout, episode.id from serie
+        $sql = "Select serie_id, serie.titre, descriptif,img, annee, date_ajout, episode.id from serie
         inner join episode on serie.id = episode.serie_id
         where serie_id = $id";
         ConnectionFactory::makeConnection();
@@ -73,6 +75,7 @@ class Serie{
         $serie->descriptif = $res[0]['descriptif'];
         $serie->annee = $res[0]['annee'];
         $serie->dateAjout = $res[0]['date_ajout'];
+        $serie->img = $res[0]['img'];
 
         foreach ($res as $episode){
             $serie->ajouterEpisode(Episode::find($episode['id']));
