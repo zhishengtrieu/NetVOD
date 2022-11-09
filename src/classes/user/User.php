@@ -39,10 +39,18 @@ class User{
      * de l’utilisateur au travers d’un bouton « ajouter à mes préférences ».
      * 
      */
-    public function addSeriePreferee(Serie $serie){
-        if (!in_array($serie, $this->VideosPreferees)){
+    public function setSeriePreferee(Serie $serie){
+        if (!$this->favoris($serie->id)){
             $this->VideosPreferees[] = $serie;
+        }else{
+            $key = array_search($serie, $this->VideosPreferees);
+            unset($this->VideosPreferees[$key]);
         }
+    }
+
+    public function favoris(int $id) : bool{
+        $serie = Serie::find($id);
+        return in_array($serie, $this->VideosPreferees);
     }
 
     public function addSerieEnCours(Serie $serie){

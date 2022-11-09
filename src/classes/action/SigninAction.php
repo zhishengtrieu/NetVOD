@@ -14,24 +14,29 @@ class SigninAction extends Action
     {
         if ($this->http_method == 'POST') {
             $res = '';
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
             if (isset($_POST['email']) and isset($_POST['pwd'])) {
-                $user = Auth::authenticate($_POST['email'], $_POST['pwd']);
-                $db = ConnectionFactory::makeConnection();
-                $sql = ("select role from user where email=?");
-                $st = ConnectionFactory::$db->prepare($sql);
-                $var = $_POST['email'];
-                $st->bindParam(1, $var);
-                $st->execute();
-                $row = $st->fetch();
-                $role = ($row['role']);
-                if ($role == 1) {
-                    if ($user != null) {
-                        $res = " Bienvenu ! $email";
+                $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
+                $user = Auth::authenticate($email, $_POST['pwd']);
+                if ($user != null) {
+                    $db = ConnectionFactory::makeConnection();
+                    $sql = ("select role from user where email=?");
+                    $st = ConnectionFactory::$db->prepare($sql);
+                    $var = $_POST['email'];
+                    $st->bindParam(1, $var);
+                    $st->execute();
+                    $row = $st->fetch();
+                    $role = ($row['role']);
+                    if ($role == 1) {
+                        if ($user != null) {
+                            $res = " Bienvenu ! $email";
+                        }
+                    } else {
+                        $res = "Compte non validé !";
                     }
                 } else {
-                    $res = "Compte non validé !";
+                    $res = "L'authentification a échoué";
                 }
+                
 
             }
         } else {
