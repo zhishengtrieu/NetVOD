@@ -10,6 +10,7 @@ use netvod\action\SigninAction;
 use netvod\action\AddUserAction;
 use netvod\action\DisplayProfileAction;
 use netvod\action\AddSerieFavorisAction;
+use netvod\action\AddCommentAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
