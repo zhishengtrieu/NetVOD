@@ -14,6 +14,7 @@ class Episode{
     private string $path;
     private int $idSerie;
 
+    //Constructeur de la classe Episode
     public function __construct(int $id, int $numero, string $titre, string $resume, int $duree, string $path, int $serieId){
         $this->id = $id;
         $this->numero = $numero;
@@ -24,6 +25,7 @@ class Episode{
         $this->idSerie = $serieId;
     }
 
+    //Setter de la classe Episode
     public function __set($attribut, $valeur){
         if (property_exists($this, $attribut)){
             if ($attribut == "id" || $attribut == "numero" || $attribut == "titre" || $attribut == "resume" || $attribut == "duree" || $attribut == "path"){
@@ -36,6 +38,7 @@ class Episode{
         }
     }
 
+    //Getter de la classe Episode
     public function __get($attribut){
         if (property_exists($this, $attribut)){
             return $this->$attribut;
@@ -44,7 +47,8 @@ class Episode{
         }
     }
 
-    public static function find(int $id){
+    //Creer un episode en fonction de la base de donnees
+    public static function find(int $id) : Episode{
         $sql = "Select * from episode 
         where id = $id";
         ConnectionFactory::makeConnection();

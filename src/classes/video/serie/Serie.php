@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Une serie est une liste d'episodes
  */
@@ -14,30 +15,38 @@ class Serie{
     private array $genres;
     private array $public;
     private string $descriptif;
-    private string $annee;
+    private int $annee;
     private string $img;
     private string $dateAjout;
     private int $nbEpisodes;
     private array $episodes;
 
+    /**
+     * Constructeur de la classe Serie
+     */
     public function __construct(int $id, string $titre){
         $this->id = $id;
         $this->titre = $titre;
         $this->genres = array();
         $this->public = array();
         $this->descriptif = "";
-        $this->annee = "";
-        $this->annee = "";
-        $this->dateAjout = 2000;
+        $this->annee = 2000; //On met une annee par defaut
+        $this->dateAjout = "";
         $this->nbEpisodes = 0;
         $this->episodes = array();
     }
 
-    public function ajouterEpisode(Episode $episode){
+    /**
+     * Methode pour ajouter un episode a la serie
+     */
+    public function ajouterEpisode(Episode $episode) : void{
         $this->episodes[] = $episode;
         $this ->nbEpisodes++;
     }
 
+    /**
+     * Methode pour calculer la note moyenne de la serie
+     */
     public function calculerMoyenneNote() : int{
         $sql = "Select AVG(note) from commentaire
         inner join serie on commentaire.serie_id = serie.id
@@ -50,7 +59,9 @@ class Serie{
     }
 
 
-
+    /**
+     * Setter de la classe Serie
+     */
     public function __set($attribut, $valeur){
         if (property_exists($this, $attribut)){
             if ($attribut == "titre" || $attribut == "genres" || $attribut == "public" || $attribut == "descriptif" || $attribut == "img" || $attribut == "annee" || $attribut == "dateAjout"){
@@ -63,6 +74,9 @@ class Serie{
         }
     }
 
+    /**
+     * Getter de la classe Serie
+     */
     public function __get($attribut){
         if (property_exists($this, $attribut)){
             return $this->$attribut;
@@ -74,7 +88,7 @@ class Serie{
     /**
      * Permet de retrouver une serie a partir de son id et d'en retourner l'objet
      */
-    public static function find(int $id){
+    public static function find(int $id) : Serie{
         $sql = "Select serie_id, serie.titre, descriptif,img, annee, date_ajout, episode.id from serie
         inner join episode on serie.id = episode.serie_id
         where serie_id = $id";

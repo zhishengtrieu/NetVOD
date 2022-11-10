@@ -23,6 +23,9 @@ class User{
     private array $VideosEnCours;
     private int $role;
 
+    /**
+     * Constructeur de la classe User
+     */
     public function __construct(string $email, string $password, int $role){
         $this->email = $email;
         $this->nom = "";
@@ -34,6 +37,9 @@ class User{
         $this->role = $role;
     }
 
+    /**
+     * Getter de la classe user
+     */
     public function __get($attribut){
         if (property_exists($this, $attribut)){
             return $this->$attribut;
@@ -57,11 +63,21 @@ class User{
         }
     }
 
+    /**
+     * Methode qui permet de savoir si une serie est dans la liste des favoris de l'utilisateur
+     * @param int $id
+     * @return bool
+     */
     public function favoris(int $id) : bool{
         $serie = Serie::find($id);
         return in_array($serie, $this->VideosPreferees);
     }
 
+    /**
+     * Methode qui permet de savoir si une serie est dans la liste des videos en cours de visionnage de l'utilisateur
+     * @param Serie $serie
+     * @return void
+     */
     public function addSerieEnCours(Serie $serie){
         if (!in_array($serie, $this->VideosEnCours)){
             $this->VideosEnCours[] = $serie;
