@@ -59,6 +59,18 @@ class Serie{
         return $res['AVG(note)'];
     }
 
+    public function afficherCommentaires() : array{
+        $serie_id = $this -> id;
+        $sql = "Select commentaire from commentaire
+        inner join serie on commentaire.serie_id = serie.id
+        where serie_id = $serie_id";
+        ConnectionFactory::makeConnection();
+        $stmt = ConnectionFactory::$db->prepare($sql);
+        $stmt -> execute();
+        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $res;
+    }
+
 
     /**
      * Setter de la classe Serie
