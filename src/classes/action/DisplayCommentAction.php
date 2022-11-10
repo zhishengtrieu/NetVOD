@@ -1,25 +1,32 @@
 <?php
 declare(strict_types=1);
 namespace netvod\action;
+use netvod\db\ConnectionFactory;
 
 class DisplayCommentAction extends Action{
     public function execute(): string {
         $html = "";
-        if ($this->http_method == 'GET') {
-            if (isset($_GET['id'])) {
-                $id = (int)$_GET['id'];
-                $sql = "Select AVG(note) from commentaire
+        if ($this->http_method == 'POST') {
+            if (isset($_SESSION['user'])) {
+                $id = (int)$_POST['id'];
+                $sql = "Select email, commentaire, note from commentaire
                         inner join serie on commentaire.serie_id = serie.id
                         where serie_id = $id";
                 ConnectionFactory::makeConnection();
                 $stmt = ConnectionFactory::$db->prepare($sql);
                 $stmt->execute();
-                $res = $stmt->fetch(\PDO::FETCH_ASSOC);
-                foreach ($res as $commentaire) {
-                    $html .= "Commentaire : $commentaire";
+                foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+                    $html .= "Commentaire de " .$row['email']." : ".$row['commentaire'] . "<br>";
+                    $html .= "Note : " .$row['note']."<br>";
                 }
+                $html .=<<<END
+                   <form action='?action=display-liste-episodes&id=$id' method='GET' >
+                    <input type='submit' value='Retour'>
+                  </form>
+        END;
             }
         }
+
         return $html;
     }
 }
