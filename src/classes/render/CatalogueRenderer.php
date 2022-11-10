@@ -44,6 +44,12 @@ class CatalogueRenderer implements Renderer{
                     <option value="4">Trier par plus petit nombre d'épisodes</option>
                     <option value="5">Trier par moyenne de serie la plus élevée</option>
                     <option value="6">Trier par moyenne de serie la plus basse</option>
+                    <option value="7">Trier par date d'ajout croissante</option>
+                    <option value="8">Trier par date d'ajout decroissante</option>
+                    <option value="9">Trier les séries de la plus ancienne à la plus récente</option>
+                    <option value="10">Trier les séries de la plus récente à la plus ancienne</option>
+
+
                 </select>
           <input type='submit' value='trier'>
         </form>
