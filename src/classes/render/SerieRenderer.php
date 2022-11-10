@@ -45,6 +45,7 @@ class SerieRenderer implements Renderer{
         <h3>Note moyenne : {$this->serie->calculerMoyenneNote()}</h3>";
         $html.= <<<END
         <form action="?action=display-comment" method="POST">
+            <input type="hidden" name="id" value="{$this->serie->id}">
             <input type ="submit" value="Voir les commentaires">
         </form>
         END;

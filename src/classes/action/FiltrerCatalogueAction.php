@@ -18,7 +18,7 @@ class FiltrerCatalogueAction extends Action{
                 $catalogue = new Catalogue();
                 $genre = filter_var($_POST['genre'], FILTER_SANITIZE_STRING);
                 $public = filter_var($_POST['public'], FILTER_SANITIZE_STRING);
-                if($_POST['genre'] === "" || isset($_POST['public']) ==="") {
+                if($_POST['genre'] === "" || $_POST['public'] ==="") {
                     $sql = "select id, titre from serie 
                 inner join serie_genre on serie.id = serie_genre.id_serie 
                 inner join genre on serie_genre.id_genre = genre.id_genre 
