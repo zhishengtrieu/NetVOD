@@ -47,15 +47,16 @@ class Serie{
     /**
      * Methode pour calculer la note moyenne de la serie
      */
-    public function calculerMoyenneNote() : int{
+    public function calculerMoyenneNote() :string{
+        $serie_id = $this -> id;
         $sql = "Select AVG(note) from commentaire
         inner join serie on commentaire.serie_id = serie.id
-        where serie_id = $this -> id";
+        where serie_id = $serie_id";
         ConnectionFactory::makeConnection();
         $stmt = ConnectionFactory::$db->prepare($sql);
         $stmt->execute();
-        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        return $res;
+        $res = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $res['AVG(note)'];
     }
 
 
