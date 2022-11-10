@@ -5,6 +5,7 @@ namespace netvod\action;
 
 use netvod\auth\Auth;
 use netvod\audio\lists\Playlist;
+use netvod\db\ConnectionFactory;
 use netvod\render\AudioListRenderer;
 use netvod\user\User;
 use netvod\auth\AccessControlException;
@@ -29,8 +30,8 @@ class SigninAction extends Action
                 } else {
                     $res = "L'authentification a échoué";
                 }
-            
-            //on gere aussi le cas ou le mot de passe a ete oublie
+
+                //on gere aussi le cas ou le mot de passe a ete oublie
             }
             if (isset($_POST['yu'])) {
                 //on cree un nouveau cookie
@@ -43,29 +44,39 @@ class SigninAction extends Action
                             <input type="email" name="emaeil" placeholder="email">
                         </form>
                     END;
-            //dans le cas ou le cookie est set et que l'email est recupere
+                //dans le cas ou le cookie est set et que l'email est recupere
             } elseif (isset($_COOKIE['kittie'])) {
                 $track = $_COOKIE['kittie'];
                 $email = filter_var($_POST['emaeil'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                 //on verifie que l'email est bien dans la base de donnee
 
                 //on verifie que l'email est valide
-                if (($email !== '')) {
-                    if (!Auth::emailLibre($email)) {
-                    $url = "?action=$track&email=$email";
-                    //on donne le formulaire pour le nouveau mdp
-                    $res = "Bienvenu  Voici votre lien $email <br>
+                $db = ConnectionFactory::makeConnection();
+                $sql = ("select role from user where email=?");
+                $st = ConnectionFactory::$db->prepare($sql);
+                $st->bindParam(1, $email);
+                $st->execute();
+                //on verifie que l'email est valide
+                $row = $st->fetch();
+                $role = ($row['role']);
+                if (!$role == 0) {
+                    if (($email !== '')) {
+                        if (!Auth::emailLibre($email)) {
+                            $url = "?action=$track&email=$email";
+                            //on donne le formulaire pour le nouveau mdp
+                            $res = "Bienvenu  Voici votre lien $email <br>
                         <a href='$url'>Changer votre mot de passe ici</a>";
-                }else{
-                    $res="Mail non valide";
-                }}
-                    else{
-                        $res="Aucun Mail";
+                        } else {
+                            $res = "Mail non valide";
+                        }
+                    } else {
+                        $res = "Aucun Mail";
                     }
+                } else {
+                    $res = "Veuiller mettre une adresse mail validé";
                 }
             }
-                
-         else {
+        } else {
             //on affiche le formulaire de connexion
             setcookie('kittie');
             $res = <<<END
