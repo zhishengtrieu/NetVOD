@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 namespace netvod\render;
+use netvod\db\ConnectionFactory;
 use netvod\video\episode\Episode;
-
+use \PDO;
 class EpisodeRenderer implements Renderer{
     private Episode $episode;
 
@@ -53,20 +54,27 @@ class EpisodeRenderer implements Renderer{
                 </video>
         </div>
         ";
+        $query = "select serie_id from episode where id = ?";
+        $id = $this->episode->id;
+        $st = ConnectionFactory::$db->prepare($query);
+        $st -> bindParam(1,$id);
+        $st->execute();
+        $row= $st->fetch(PDO::FETCH_ASSOC);
+        $id_serie = $row['serie_id'];
         $html .= <<<END
-                <form action="?action=add-comment" method="POST">
+                <form action="?action=add-comment&id_serie=$id_serie" method="POST">
                     <input type="string" name="commentaire" placeholder="comment">
                     <select name="note">
                         <option value="1">1 etoile</option>
-                        <option value="1">1.5 etoile</option>
+                        <option value="1.5">1.5 etoile</option>
                         <option value="2">2 etoiles</option>
-                        <option value="1">2.5 etoiles</option>
+                        <option value="2.5">2.5 etoiles</option>
                         <option value="3">3 etoiles</option>
-                        <option value="1">3.5 etoiles</option>
+                        <option value="3.5">3.5 etoiles</option>
                         <option value="4">4 etoiles</option>
-                        <option value="1">4.5 etoiles</option>
+                        <option value="4.5">4.5 etoiles</option>
                         <option value="5">5 etoiles</option>
-                        <option value="5">RickRoll etoiles</option>
+                        <option value="6">RickRoll etoiles</option>
                     </select>
                     <input type="submit" value="Enregistrer le commentaire">
                 </form>

@@ -73,7 +73,7 @@ class Auth{
                     //On insere l'utilisateur dans la base de données ainsi que son mot de passe
                     ConnectionFactory::makeConnection();
                     $req = ConnectionFactory::$db->prepare(
-                        'INSERT INTO user VALUES (0, :email, :password, "", "")'
+                        'INSERT INTO user VALUES (0, :email, :password, "", "",0)'
                     );
                     $req->execute(array(
                         'email' => $email,
