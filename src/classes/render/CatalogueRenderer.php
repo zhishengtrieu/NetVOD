@@ -17,12 +17,15 @@ class CatalogueRenderer implements Renderer{
 
     public function render(int $selector=Renderer::LONG):string{
         $html = "<h1>Catalogue</h1>";
+        //formulaire pour rechercher un mot dans le titre ou la description d'une serie
         $html .= <<<HTML
             <form action="?action=rechercher" method="post">
                 <input type="string" name="recherche" placeholder="recherche">
                 <input type="submit" value="Rechercher">
             </form>
             HTML;
+
+        //formulaire pour le choix d'un tri
         $html .= <<<HTML
             <form action="?action=afficherCatalogue" method="post">
                 <select name='tris'>
@@ -40,6 +43,8 @@ class CatalogueRenderer implements Renderer{
                 <input type='submit' value='trier'>
             </form>
         HTML;
+
+        //formulaire pour filtrer par genre et public
         $html .= <<<HTML
             <form action="?action=filtrer-catalogue" method="post">
                 <select name='genre'>
@@ -62,7 +67,9 @@ class CatalogueRenderer implements Renderer{
                 <input type='submit' value='filtrer'>
             </form>
             HTML;
+        //pour toute les series du catalogue
         foreach ($this->catalogue->series as $serie){
+            //on affiche la serie en mode court
             $renderer = new SerieRenderer($serie);
             $html .= $renderer->render(Renderer::COMPACT);
         }
