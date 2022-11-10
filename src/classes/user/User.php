@@ -4,6 +4,8 @@ namespace netvod\user;
 use netvod\db\ConnectionFactory;
 use netvod\exception\InvalidPropertyNameException;
 use netvod\video\serie\Serie;
+use netvod\video\episode\Episode;
+use \PDO;
 /**
  * un utilisateur possède plusieurs listes :
  * - une liste de videos preferees,
@@ -31,10 +33,12 @@ class User{
         $this->nom = "";
         $this->prenom = "";
         $this->password = $password;
-        $this->VideosPreferees = [];
-        $this->VideosVisionnees = [];
-        $this->VideosEnCours = [];
         $this->role = $role;
+        $this->VideosPreferees = array();
+        $this->VideosVisionnees = array();
+        //la liste va associer la serie en cours a l'episode courant
+        $this->VideosEnCours = array();
+        $this->update();
     }
 
     /**
@@ -63,11 +67,18 @@ class User{
      * 
      */
     public function setSeriePreferee(Serie $serie){
+        ConnectionFactory::makeConnection();
         if (!$this->favoris($serie->id)){
             $this->VideosPreferees[] = $serie;
+            $sql = "INSERT INTO serie_favoris VALUES ('$this->email', $serie->id)";
+            $stmt = ConnectionFactory::$db->prepare($sql);
+            $stmt->execute();
         }else{
             $key = array_search($serie, $this->VideosPreferees);
             unset($this->VideosPreferees[$key]);
+            $sql = "DELETE from serie_favoris where email = '$this->email' and serie_id = $serie->id";
+            $stmt = ConnectionFactory::$db->prepare($sql);
+            $stmt->execute();
         }
     }
 
@@ -86,21 +97,82 @@ class User{
      * @param Serie $serie
      * @return void
      */
-    public function addSerieEnCours(Serie $serie){
-        if (!in_array($serie, $this->VideosEnCours)){
-            $this->VideosEnCours[] = $serie;
+    public function addSerieEnCours(Serie $serie, Episode $episode){
+        ConnectionFactory::makeConnection();
+        //on regarde si la serie est deja une cle de la liste
+        if (!array_key_exists($serie->id, $this->VideosEnCours)){
+            $this->VideosEnCours[$serie->id] = $episode;
+            $sql = "INSERT INTO serie_en_cours VALUES ('$this->email', $serie->id, $episode->id)";
+            $stmt = ConnectionFactory::$db->prepare($sql);
+            $stmt->execute();
+        }else{
+            //on regarde si l'episode courant est plus recent que celui en cours
+            if ($this->VideosEnCours[$serie->id]->numero < $episode->numero){
+                $this->VideosEnCours[$serie->id] = $episode;
+                $sql = "UPDATE serie_en_cours SET episode_id = $episode->id WHERE email = $this->email AND serie_id = $serie->id";
+                $stmt = ConnectionFactory::$db->prepare($sql);
+                $stmt->execute();
+            }
         }
     }
 
     public function removeSerieEnCours(Serie $serie){
+        ConnectionFactory::makeConnection();
         if (in_array($serie, $this->VideosEnCours)){
             $key = array_search($serie, $this->VideosEnCours);
             unset($this->VideosEnCours[$key]);
+            $sql = "DELETE from serie_en_cours where email = '$this->email' and serie_id = $serie->id";
+            $stmt = ConnectionFactory::$db->prepare($sql);
+            $stmt->execute();
         }
     }
 
     public function addSerieVisionnee(Serie $serie){
+        ConnectionFactory::makeConnection();
         if (!in_array($serie, $this->VideosVisionnees)){
+            $this->VideosVisionnees[] = $serie;
+            $sql = "INSERT INTO serie_visionnees VALUES ('$this->email', $serie->id)";
+            $stmt = ConnectionFactory::$db->prepare($sql);
+            $stmt->execute();
+        }
+    }
+    
+    /**
+     * methode update pour mettre a jour les listes de user
+     * en fonction de la base de donnees
+     */
+    public function update(): void{
+        ConnectionFactory::makeConnection();
+        //on recupere les series preferees
+        $sql = "SELECT * FROM user 
+        inner join serie_favoris on user.email = serie_favoris.email
+        WHERE user.email = '$this->email'";
+        $query = ConnectionFactory::$db->prepare($sql);
+        $query->execute();
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $row){
+            $serie = Serie::find((int) $row['serie_id']);
+            $this->VideosPreferees[] = $serie;
+        }
+
+        //on recupere les series en cours
+        $sql = "SELECT * FROM user
+        inner join serie_en_cours on user.email = serie_en_cours.email
+        WHERE user.email = '$this->email'";
+        $query = ConnectionFactory::$db->prepare($sql);
+        $query->execute();
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $row){
+            $serie = Serie::find((int) $row['serie_id']);
+            $this->VideosEnCours[$serie] = $row['episode_id'];
+        }
+
+        //on recupere les series visionnees
+        $sql = "SELECT * FROM user
+        inner join serie_visionnees on user.email = serie_visionnees.email
+        WHERE user.email = '$this->email'";
+        $query = ConnectionFactory::$db->prepare($sql);
+        $query->execute();
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $row){
+            $serie = Serie::find((int) $row['serie_id']);
             $this->VideosVisionnees[] = $serie;
         }
     }

@@ -15,6 +15,7 @@ class SigninAction extends Action
     {
         if ($this->http_method == 'POST') {
             $res = '';
+            //on recupere les donnees du formulaire dans le cas ou on veut se connecter
             if (isset($_POST['email']) and isset($_POST['pwd'])) {
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                 $user = Auth::authenticate($email, $_POST['pwd']);
@@ -28,30 +29,40 @@ class SigninAction extends Action
                 } else {
                     $res = "L'authentification a échoué";
                 }
+            
+            //on gere aussi le cas ou le mot de passe a ete oublie
             }
             if (isset($_POST['yu'])) {
+                //on cree un nouveau cookie
                 $track = uniqid();
                 setcookie("kittie", $track,
                     Time() + 60 * 60 * 24 * 365);
+                //on recupere l'email de l'utilisateur pour le formulaire de mot de passe oublie
                 $res = <<<END
-            <form action="?action=signin" method="post">
-                <input type="email" name="emaeil" placeholder="email">
-            </form>
-            END;
-            } else {
-                if (isset($_COOKIE['kittie'])){
-                    $track = $_COOKIE['kittie'];
+                        <form action="?action=signin" method="post">
+                            <input type="email" name="emaeil" placeholder="email">
+                        </form>
+                    END;
+            //dans le cas ou le cookie est set et que l'email est recupere
+            } elseif (isset($_COOKIE['kittie'])) {
+                $track = $_COOKIE['kittie'];
                 $email = filter_var($_POST['emaeil'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
-                $url = "?action=$track&email=$email";
-                $res = "Bienvenu  Voici votre lien $email <br>
-                            <a href='$url'>activer votre compte ici</a>";
+                //on verifie que l'email est bien dans la base de donnee
+
+                //on verifie que l'email est valide
+                if (($email !== '')) {
+                    $url = "?action=$track&email=$email";
+                    //on donne le formulaire pour le nouveau mdp
+                    $res = "Bienvenu  Voici votre lien $email <br>
+                        <a href='$url'>Changer votre mot de passe ici</a>";
+                }else{
+                    $res="Entrer un email";
+                }
             }
-        }
-
-
+                
         } else {
-
-
+            //on affiche le formulaire de connexion
+            setcookie('kittie');
             $res = <<<END
             <form action="?action=signin" method="post">
                 <input type="email" name="email" placeholder="email">

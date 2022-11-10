@@ -9,6 +9,7 @@ Los Melissandre :
     -   Navigation dans le catalogue des séries
 Trieu Zhi-Sheng : 
     -S'occupe de la partie Gestion des listes utilisateurs avec la classe User
+    -css et webetu
 Rouyer Hugolin :
     - Commentaires et avis
 
