@@ -17,53 +17,48 @@ class DisplayProfilAction extends Action
             $user = unserialize($_SESSION['user']);
             $email = $user->email;
             if ($this->http_method == 'POST') {
-                if (isset($_POST['nom']) || isset($_POST['prenom'])||($_POST['pref']!="")) {
-                    if (isset($_POST['nom'])) {
-                        $nom = filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
-                        if ($nom  != "") {
-                            $sql = ("update user set nom=? where email=?");
-                            $st = ConnectionFactory::$db->prepare($sql);
-                            $st->bindParam(1, $nom);
-                            $st->bindParam(2, $email);
-                            $st->execute();
-                            //on met a jour l'objet user
-                            $user->nom = $nom;
-                            $res = "Changement profil effecuté";
-                        }
+                if (($_POST['nom']!="") || ($_POST['prenom']!="") ||($_POST['pref']!="")) {
+                    $nom = filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
+                    $ui = filter_var($_POST['prenom'], FILTER_SANITIZE_STRING);
+                    $id = filter_var($_POST['pref'], FILTER_SANITIZE_STRING);
+                    if ($nom  != "") {
+                        $sql = ("update user set nom=? where email=?");
+                        $st = ConnectionFactory::$db->prepare($sql);
+                        $st->bindParam(1, $nom);
+                        $st->bindParam(2, $email);
+                        $st->execute();
+                        //on met a jour l'objet user
+                        $user->nom = $nom;
+                        $res = "Changement profil effecuté";
                     }
-                    if (isset($_POST['prenom'])) {
-                        $ui = filter_var($_POST['prenom'], FILTER_SANITIZE_STRING);
-                        if ($ui != "") {
-                            $sqll = ("update user set prenom=? where email=?");
-                            $st = ConnectionFactory::$db->prepare($sqll);
-                            $st->bindParam(1, $ui);
-                            $st->bindParam(2, $email);
-                            $st->execute();
-                            //on met a jour l'objet user
-                            $user->prenom = $ui;
-                            $res = "Changement profil effecuté";
-                        }
+                
+                    if ($ui != "") {
+                        $sqll = ("update user set prenom=? where email=?");
+                        $st = ConnectionFactory::$db->prepare($sqll);
+                        $st->bindParam(1, $ui);
+                        $st->bindParam(2, $email);
+                        $st->execute();
+                        //on met a jour l'objet user
+                        $user->prenom = $ui;
+                        $res = "Changement profil effecuté";
                     }
-                    if (isset($_POST['pref'])) {
-                        $id = filter_var($_POST['pref'], FILTER_SANITIZE_STRING);
-                        if ($id != "") {
+                
+                    if ($id != "") {
+                        $sqlo = ("select id_genre from genre where libelle_genre=?");
+                        $st = ConnectionFactory::$db->prepare($sqlo);
+                        $st->bindParam(1, $id);
+                        $st->execute();
+                        $row = $st->fetch();
+                        $ids = $row["id_genre"];
 
-                            $sqlo = ("select id_genre from genre where libelle_genre=?");
-                            $st = ConnectionFactory::$db->prepare($sqlo);
-                            $st->bindParam(1, $id);
-                            $st->execute();
-                            $row = $st->fetch();
-                            $ids = $row["id_genre"];
-
-
-                            $sqla = ("update user set id_genre=? where email=?");
-                            $st = ConnectionFactory::$db->prepare($sqla);
-                            $st->bindParam(1, $ids);
-                            $st->bindParam(2, $email);
-                            $st->execute();
-                            $res = "Changement profil effecuté";
-                        }
+                        $sqla = ("update user set id_genre=? where email=?");
+                        $st = ConnectionFactory::$db->prepare($sqla);
+                        $st->bindParam(1, $ids);
+                        $st->bindParam(2, $email);
+                        $st->execute();
+                        $res = "Changement profil effecuté";
                     }
+                    
                 }else{
                     $res="Veuillez au minimum rentrer une information" ;
                 }
