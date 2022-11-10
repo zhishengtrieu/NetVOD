@@ -17,25 +17,35 @@ class ForgotPassword extends Action
                 $mail = $_GET['email'];
                 if (($pwd !== '') && (strlen($pwd) >= 10)) {
                     if (!Auth::emailLibre($mail)) {
-                    $db = ConnectionFactory::makeConnection();
-                    $sql = ("update user set passwd =? where email=?");
-                    $st = ConnectionFactory::$db->prepare($sql);
-                    $password = password_hash($pwd, PASSWORD_DEFAULT);
-                    $st->bindParam(1, $password);
-                    $st->bindParam(2, $mail);
-                    $st->execute();
-                    $res = "Vous avez changé de Mot de passe ";
-                    setcookie('kittie', NULL, -1);
-                } else{
-                        $res="Votre adresse mail n'est pas dans notre base de données";
+                        $db = ConnectionFactory::makeConnection();
+                        $sql = ("select role from user where email=?");
+                        $st = ConnectionFactory::$db->prepare($sql);
+                        $st->bindParam(1, $mail);
+                        $st->execute();
+                        $row = $st->fetch();
+                        $role = ($row['role']);
+                        if (!$role == 0) {
+                            $db = ConnectionFactory::makeConnection();
+                            $sql = ("update user set passwd =? where email=?");
+                            $st = ConnectionFactory::$db->prepare($sql);
+                            $password = password_hash($pwd, PASSWORD_DEFAULT);
+                            $st->bindParam(1, $password);
+                            $st->bindParam(2, $mail);
+                            $st->execute();
+                            $res = "Vous avez changé de Mot de passe ";
+                            setcookie('kittie', NULL, -1);
+                        } else {
+                            $res = "Votre adresse Mail n'a pas été validée";
+                        }
+                    } else {
+                        $res = "Votre adresse mail n'est pas dans notre base de données";
                     }
-                }
-                    else {
+                } else {
                     $res = "Mettez un vrai Mot de Passe";
                 }
             } else {
                 $var = $_GET['email'];
-                    $res = <<<END
+                $res = <<<END
             <form action="?action=$sora&email=$var" method="post">
                 <input type="password" name="pwd" placeholder="password">
                 <input type="submit" value="Valider">
