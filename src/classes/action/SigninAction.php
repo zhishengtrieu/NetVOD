@@ -7,7 +7,7 @@ use netvod\auth\Auth;
 use netvod\audio\lists\Playlist;
 use netvod\render\AudioListRenderer;
 use netvod\user\User;
-use netvod\auth\AccesControlException;
+use netvod\auth\AccessControlException;
 
 class SigninAction extends Action
 {
@@ -17,6 +17,7 @@ class SigninAction extends Action
             $res = '';
             if (isset($_POST['email']) and isset($_POST['pwd'])) {
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
+                $user = Auth::authenticate($email, $_POST['pwd']);
                 if (isset($_SESSION['user'])) {
                         try {
                             Auth::checkAccessLevel(USER::NORMAL_USER);
@@ -31,13 +32,17 @@ class SigninAction extends Action
 
             }
         } else {
+
+            $url = "?action=Forgot-password";
             $res = <<<END
             <form action="?action=signin" method="post">
                 <input type="email" name="email" placeholder="email">
                 <input type="password" name="pwd" placeholder="password">
                 <input type="submit" value="Se connecter">
-                <button onclick="http://localhost/SAE-Trieu-Rouyer-Los-Gallion/index.php;">Cliquez Ici</button>
             </form>
+            <form action="?action=signin" method="get">
+            <button onclick="?action=Forgot-password&">Mot de passe oublié ?</button>
+             </form>
             END;
         }
         return $res;

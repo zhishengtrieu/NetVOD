@@ -4,7 +4,7 @@ namespace netvod\auth;
 use netvod\user\User;
 use netvod\db\ConnectionFactory;
 use netvod\audio\lists\Playlist;
-use netvod\exception\AccesControlException;
+use netvod\exception\AccessControlException;
 //Classe Auth
 class Auth{
 
@@ -25,7 +25,7 @@ class Auth{
     public static function checkAccessLevel (int $required): void {
         $userLevel = (int) unserialize($_SESSION['user'])->role;
         if ($userLevel < $required){
-            throw new AccesControlException("action non autorisée : droits insuffisants");
+            throw new AccessControlException("action non autorisée : droits insuffisants");
         }
     }
 
