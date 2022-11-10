@@ -10,7 +10,7 @@ use netvod\video\serie\Serie;
 use \PDO;
 class TriDateAjoutCroissante implements Tri
 {
-    // cette fonction permettera de trier les series du catalogue par datte d'ajot de la plus ancienne a la plus récente
+    // cette fonction permettera de trier les series du catalogue par date d'ajout de la plus ancienne a la plus récente
     public function trier(): string
     {
         $res = "";
