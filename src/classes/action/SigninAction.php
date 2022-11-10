@@ -7,6 +7,7 @@ use netvod\auth\Auth;
 use netvod\audio\lists\Playlist;
 use netvod\db\ConnectionFactory;
 use netvod\render\AudioListRenderer;
+use netvod\user\User;
 
 class SigninAction extends Action
 {
