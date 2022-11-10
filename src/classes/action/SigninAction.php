@@ -52,7 +52,6 @@ class SigninAction extends Action
                 //on verifie que l'email est valide
                 if (($email !== '')) {
                     $url = "?action=$track&email=$email";
-                    echo $url;
                     //on donne le formulaire pour le nouveau mdp
                     $res = "Bienvenu  Voici votre lien $email <br>
                         <a href='$url'>Changer votre mot de passe ici</a>";
