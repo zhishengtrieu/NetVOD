@@ -72,7 +72,7 @@ class CatalogueRenderer implements Renderer{
             HTML;
         foreach ($this->catalogue->series as $serie){
             $renderer = new SerieRenderer($serie);
-            $html .= "<a href='?action=display-liste-episodes&id=$serie->id'>".$renderer->render(Renderer::COMPACT)."</a>";
+            $html .= $renderer->render(Renderer::COMPACT);
         }
         return $html;
     }

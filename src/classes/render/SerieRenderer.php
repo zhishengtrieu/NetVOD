@@ -26,14 +26,13 @@ class SerieRenderer implements Renderer{
 
     private function renderCompact():string{
         $serie = Serie::find($this->serie->id);
-        $html = "
+        $html = "<a href='?action=display-liste-episodes&id=$serie->id'>
         <div class='serie'>
             <div class='serie_title'>
                 <li>{$this->serie->titre}</li>
             </div>
             <img src='img/$serie->img' height='300' width='400'>
-        </div>
-        ";
+        </div></a>";
         return $html;
     }
 

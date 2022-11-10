@@ -27,7 +27,7 @@ class DisplayEpisodeAction extends Action{
                         façon similaire à la liste de préférence. 
                         */
                         $serie = Serie::find($episode->idSerie);
-                        $user->addSerieEnCours($serie);
+                        $user->addSerieEnCours($serie, $episode);
                         if ($episode->numero == $serie->nbEpisodes){
                             /*
                             Lorsqu’un épisode est le dernier d’une série, la série est automatiquement ajoutée à la liste
