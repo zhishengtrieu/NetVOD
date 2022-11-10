@@ -85,9 +85,13 @@ class DisplayProfilAction extends Action
                     <option value="romance">Romance</option>
                     <option value="horreur">Horreur</option>
                 </select>
-            <input type="submit" value="valider">
-            </form>
-            END;
+                <input type="submit" value="valider">
+                </form>
+                <form action="?action=logout" method="POST">
+                    <input type="submit" value="Se déconnecter">
+                </form>
+                END;
+                
             }
         }else{
             $res="Veuillez-vous connecter !";

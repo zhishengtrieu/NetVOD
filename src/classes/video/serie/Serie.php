@@ -97,7 +97,6 @@ class Serie{
         $stmt = ConnectionFactory::$db->prepare($sql);
         $stmt->execute();
         $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
         $serie = new Serie((int) $res[0]['serie_id'], $res[0]['titre']);
         $serie->descriptif = $res[0]['descriptif'];
         $serie->annee = (int) $res[0]['annee'];
