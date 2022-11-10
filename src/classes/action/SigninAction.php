@@ -51,16 +51,21 @@ class SigninAction extends Action
 
                 //on verifie que l'email est valide
                 if (($email !== '')) {
+                    if (!Auth::emailLibre($email)) {
                     $url = "?action=$track&email=$email";
                     //on donne le formulaire pour le nouveau mdp
                     $res = "Bienvenu  Voici votre lien $email <br>
                         <a href='$url'>Changer votre mot de passe ici</a>";
                 }else{
-                    $res="Entrer un email";
+                    $res="Mail non valide";
+                }}
+                    else{
+                        $res="Aucun Mail";
+                    }
                 }
             }
                 
-        } else {
+         else {
             //on affiche le formulaire de connexion
             setcookie('kittie');
             $res = <<<END

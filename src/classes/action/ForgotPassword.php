@@ -18,7 +18,8 @@ class ForgotPassword extends Action
                 $sql = ("update user set passwd =? where email=?");
                 $st = ConnectionFactory::$db->prepare($sql);
                 $var = $_GET['email'];
-                $st->bindParam(1, $pwd);
+                    $password = password_hash($pwd, PASSWORD_DEFAULT);
+                $st->bindParam(1, $password);
                 $st->bindParam(2, $var);
                 $st->execute();
                 $res = "Vous avez changé de Mot de passe ";
@@ -26,8 +27,9 @@ class ForgotPassword extends Action
             }else{
                     $res="Mettez un vrai Mot de Passe";
                 } }else {
+                $var = $_GET['email'];
                 $res = <<<END
-            <form action="?action=$sora" method="post">
+            <form action="?action=$sora&email=$var" method="post">
                 <input type="password" name="pwd" placeholder="password">
                 <input type="submit" value="Valider">
             </form>
