@@ -12,7 +12,8 @@ class ForgotPassword extends Action
         if (isset($_COOKIE['kittie'])) {
             $sora = $_COOKIE['kittie'];
             if ($this->http_method == 'POST') {
-                $pwd = $_POST['pwd'];
+                $pwd=$_POST['pwd'];
+                if (($pwd !== '')&&(strlen($pwd) >= 10)) {
                 $db = ConnectionFactory::makeConnection();
                 $sql = ("update user set passwd =? where email=?");
                 $st = ConnectionFactory::$db->prepare($sql);
@@ -22,8 +23,9 @@ class ForgotPassword extends Action
                 $st->execute();
                 $res = "Vous avez changé de Mot de passe ";
                 setcookie('kittie', NULL, -1);
-            } else {
-                echo $_GET['email'];
+            }else{
+                    $res="Mettez un vrai Mot de Passe";
+                } }else {
                 $res = <<<END
             <form action="?action=$sora" method="post">
                 <input type="password" name="pwd" placeholder="password">
