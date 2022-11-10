@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 09 nov. 2022 à 10:59
+-- Généré le : jeu. 10 nov. 2022 à 08:58
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -28,27 +28,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `user` (
-  `role` int(11) NOT NULL,
+  `role` int(11) NOT NULL DEFAULT 0,
   `email` varchar(256) NOT NULL,
   `passwd` varchar(256) NOT NULL,
   `prenom` varchar(20) NOT NULL,
-  `nom` varchar(20) NOT NULL
+  `nom` varchar(20) NOT NULL,
+  `id_genre` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`role`, `email`, `passwd`, `prenom`, `nom`) VALUES
-(0, 'huihui@gmail.com', '$2y$10$zEg8H0HVarmkYCsXoxse4O6v5puk2o7ITApew9kGBB.1K35R7zmW6', '', ''),
-(0, 'Lga@gmail.com', '$2y$10$Hgyj8stPNUY14Dzk3xvdZOCu4bl1JekiICYW.1UtMy326wuSctcga', '', ''),
-(0, 'ty@gmail.com', '$2y$10$9OuKmJN0KnzI.m6yoW7XjOl5lQAGMYfSieq5hu7CDgkNBhgngk.1C', '', ''),
-(0, 'ui@gmail.com', '$2y$10$bxl82BurfVxGlbsqhsN8I.bpP0sbhbJzZXgBKtpkVyQmjO1er.ksC', '', ''),
-(0, 'tya@gmail.com', '$2y$10$DUkaDGHql5Qw2qkNp0qpUein0a1Ol2tid2WwOGCUSRPp4xj0RKPcu', '', ''),
-(0, 'tyaa@gmail.com', '$2y$10$piy4hXQRP62aKv2T98yxN.26bThXLl3QPbS1wJaRma7ba8xYdf5uW', '', ''),
-(0, 'uai@gmail.com', '$2y$10$6HlymE0PbvIVjzUvm1MEKuikkNOxOwxJ9h95XS3vch5T.kh6yiyZm', '', ''),
-(0, 'uaia@gmail.com', '$2y$10$ORhTlOclrd21JS.9/EiKTOQTjtZSHNJTEQv9.6hMnp.EObYVuptce', '', ''),
-(0, 'uaie@gmail.com', '$2y$10$IkPgQFKh7nYhy.yJybi3deeZ3RY.q4nqWqYzzn7C2nJLMY7wyUCSS', '', '');
+INSERT INTO `user` (`role`, `email`, `passwd`, `prenom`, `nom`, `id_genre`) VALUES
+(1, 'Admin@gmail.com', '$2y$10$At6gQel6cBKzdTQiFtsx8..2q5JlN/7pwGa5tZrhLup.gDr9QqOIW', 'gr', 'rick', 1),
+(0, 'test@gmail.com', '$2y$10$LAN0QgPsB7Rqkq0MkvKDRO45VWa66IqHAjZPoVFfpQmGpjdKriD56', '', '', 0),
+(1, 'Beta@gmail.com', '$2y$10$w5sRo6eX3S8k6PAxrVDknOvgMwAFjrOMd0slV/1Rw9X23vwXrKIMe', '', 'Ogre', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
