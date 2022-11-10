@@ -48,6 +48,14 @@ class User{
         }
     }
 
+    public function __set($attribut, $valeur){
+        if (property_exists($this, $attribut)){
+            $this->$attribut = $valeur;
+        }else{
+            throw new InvalidPropertyNameException($attribut);
+        }
+    }
+
     /**
      * 6. Ajout d’une série dans la liste de préférence d’un utilisateur
      * Lorsqu’une série est affichée, possibilité de l’ajouter à la liste de préférence 
@@ -81,6 +89,19 @@ class User{
     public function addSerieEnCours(Serie $serie){
         if (!in_array($serie, $this->VideosEnCours)){
             $this->VideosEnCours[] = $serie;
+        }
+    }
+
+    public function removeSerieEnCours(Serie $serie){
+        if (in_array($serie, $this->VideosEnCours)){
+            $key = array_search($serie, $this->VideosEnCours);
+            unset($this->VideosEnCours[$key]);
+        }
+    }
+
+    public function addSerieVisionnee(Serie $serie){
+        if (!in_array($serie, $this->VideosVisionnees)){
+            $this->VideosVisionnees[] = $serie;
         }
     }
 

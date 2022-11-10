@@ -12,11 +12,11 @@ class ForgotPassword extends Action
         if ($this->http_method == 'POST') {
             $pwd = $_POST['pwd'];
             $db = ConnectionFactory::makeConnection();
-            $sql = ("update user set password =? where email=?");
+            $sql = ("update user set passwd =? where email=?");
             $st = ConnectionFactory::$db->prepare($sql);
             $var = $_GET['email'];
             $st->bindParam(1, $pwd);
-            $st->bindParam(1, $var);
+            $st->bindParam(2, $var);
             $st->execute();
             $res = "Vous avez changer de Mot de passe ";
         }
