@@ -23,7 +23,7 @@ class ForgotPassword extends Action
                 $res = "Vous avez changé de Mot de passe ";
                 setcookie('kittie', NULL, -1);
             } else {
-                $
+                echo $_GET['email'];
                 $res = <<<END
             <form action="?action=$sora" method="post">
                 <input type="password" name="pwd" placeholder="password">
