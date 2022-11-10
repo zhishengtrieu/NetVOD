@@ -31,7 +31,7 @@ CREATE TABLE `commentaire` (
   `email` varchar(25) NOT NULL,
   `serie_id` int(5) NOT NULL,
   `commentaire` text NOT NULL,
-  `note` int(1) NOT NULL
+  `note` double(2,1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 COMMIT;
 
