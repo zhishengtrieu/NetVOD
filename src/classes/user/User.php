@@ -109,7 +109,7 @@ class User{
             //on regarde si l'episode courant est plus recent que celui en cours
             if ($this->VideosEnCours[$serie->id]->numero < $episode->numero){
                 $this->VideosEnCours[$serie->id] = $episode;
-                $sql = "UPDATE serie_en_cours SET episode_id = $episode->id WHERE email = $this->email AND serie_id = $serie->id";
+                $sql = "UPDATE serie_en_cours SET episode_id = $episode->id WHERE email = '$this->email' AND serie_id = $serie->id";
                 $stmt = ConnectionFactory::$db->prepare($sql);
                 $stmt->execute();
             }
