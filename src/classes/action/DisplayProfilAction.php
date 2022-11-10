@@ -89,11 +89,9 @@ class DisplayProfilAction extends Action
             </form>
             END;
             }
+        }else{
+            $res="Veuillez-vous connectez !";
         }
-else{
-    $res="Veuillez-vous connectez !";
-            }
-
         return $res;
     }
 }

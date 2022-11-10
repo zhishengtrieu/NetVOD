@@ -48,7 +48,7 @@ class Auth{
         $result = $req->fetch();
         if (!self::emailLibre($email)){
             if (password_verify($password, $result[0])){
-                $res = new User($email, $password, $result[1]);
+                $res = new User($email, $password, (int) $result[1]);
                 $_SESSION['user'] = serialize($res);
             }
         }

@@ -29,13 +29,13 @@ class CatalogueRenderer implements Renderer{
 
     private function renderCompact():string{
         $html = "<h1>Catalogue</h1>";
-        $html .= <<<END
+        $html .= <<<HTML
             <form action="?action=rechercher" method="post">
                 <input type="string" name="recherche" placeholder="recherche">
                 <input type="submit" value="Rechercher">
             </form>
-            END;
-        $html .= <<<END
+            HTML;
+        $html .= <<<HTML
             <form action="?action=afficherCatalogue" method="post">
                 <select name='tris'>
                     <option value="1">Trier par titre alphabétique</option>
@@ -45,8 +45,8 @@ class CatalogueRenderer implements Renderer{
                 </select>
           <input type='submit' value='trier'>
         </form>
-        END;
-        $html .= <<<END
+        HTML;
+        $html .= <<<HTML
             <form action="?action=filtrer-catalogue" method="post">
                 <select name='genre'>
                     <option value="">Selectionner un genre</option>
@@ -65,10 +65,9 @@ class CatalogueRenderer implements Renderer{
                     <option value="familles">Familles</option>
                     <option value="adultes">Adultes</option>
                 </select>
-
-          <input type='submit' value='filtrer'>
-        </form>
-        END;
+                <input type='submit' value='filtrer'>
+            </form>
+            HTML;
         foreach ($this->catalogue->series as $serie){
             $renderer = new SerieRenderer($serie);
             $html .= "<a href='?action=display-liste-episodes&id=$serie->id'>".$renderer->render(Renderer::COMPACT)."</a>";

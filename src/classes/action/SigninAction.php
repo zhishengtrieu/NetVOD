@@ -18,12 +18,13 @@ class SigninAction extends Action
             if (isset($_POST['email']) and isset($_POST['pwd'])) {
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                 $user = Auth::authenticate($email, $_POST['pwd']);
-                if ($user != null) {
-                    if ($user->role != USER::NO_USER) {
-                        $res = " Bienvenu ! $email";    
-                    } else {
-                        $res = "Compte non validé !";
-                    }
+                if (isset($_SESSION['user'])) {
+                        try {
+                            Auth::checkAccessLevel(USER::NORMAL_USER);
+                            $res = " Bienvenu ! $email"; 
+                        }catch(AccessControlException $e){
+                            $res .= $e->getMessage();
+                        }
                 } else {
                     $res = "L'authentification a échoué";
                 }

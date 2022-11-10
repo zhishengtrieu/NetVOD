@@ -14,19 +14,21 @@ class AddCommentAction extends Action
                 $note = $_POST['note'];
                 if (isset($_SESSION['user'])) {
                     $user = unserialize($_SESSION['user']);
-                    $id = $_POST['id'];
-                    $email = $user->email;
-                    $req = ConnectionFactory::$db->prepare("select COUNT(*) from commentaire where email= $email and id_serie = $id");
-                    $req->execute();
-                    $result = $req->fetch();
-                    if ($result[0] == 0) {
-                        $req = ConnectionFactory::$db->prepare("insert into commentaire (email, commentaire, note) values ($email, $commentaire, $note)");
+                    if ($user->role != USER::NO_USER) {
+                        $id = $_POST['id'];
+                        $email = $user->email;
+                        $req = ConnectionFactory::$db->prepare("select COUNT(*) from commentaire where email= $email and id_serie = $id");
                         $req->execute();
-                        $res = "Commentaire ajoute<br>";
-                    } else {
-                        $res = "Vous avez deja commente <br>";
+                        $result = $req->fetch();
+                        if ($result[0] == 0) {
+                            $req = ConnectionFactory::$db->prepare("insert into commentaire (email, commentaire, note) values ($email, $commentaire, $note)");
+                            $req->execute();
+                            $res = "Commentaire ajoute<br>";
+                        } else {
+                            $res = "Vous avez deja commente <br>";
+                        }
+                        $_SESSION['user'] = serialize($user);
                     }
-                    $_SESSION['user'] = serialize($user);
                 } else {
                     $res .= 'Il faut se connecter avant d ajouter un commentaire';
                 }
