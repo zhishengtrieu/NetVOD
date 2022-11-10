@@ -47,7 +47,7 @@ class Dispatcher{
             case "set-favoris" :
                 $res = (new SetFavorisAction())->execute();
                 break;
-            case "ajouter-commentaire" :
+            case "add-comment" :
                 $res = (new AddCommentAction())->execute();
                 break;
             case "rechercher" :

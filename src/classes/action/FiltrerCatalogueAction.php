@@ -18,7 +18,8 @@ class FiltrerCatalogueAction extends Action{
                 $catalogue = new Catalogue();
                 $genre = filter_var($_POST['genre'], FILTER_SANITIZE_STRING);
                 $public = filter_var($_POST['public'], FILTER_SANITIZE_STRING);
-                $sql = "select id, titre from serie 
+                if($_POST['genre'] === "" || isset($_POST['public']) ==="") {
+                    $sql = "select id, titre from serie 
                 inner join serie_genre on serie.id = serie_genre.id_serie 
                 inner join genre on serie_genre.id_genre = genre.id_genre 
                 where libelle_genre = ? 
@@ -27,6 +28,18 @@ class FiltrerCatalogueAction extends Action{
                 inner join serie_public on serie.id = serie_public.id_serie 
                 inner join public on serie_public.id_public = public.id_public 
                 where libelle_public = ?";
+                }
+               else{
+                    $sql = "select id, titre from serie 
+                inner join serie_genre on serie.id = serie_genre.id_serie 
+                inner join genre on serie_genre.id_genre = genre.id_genre 
+                where libelle_genre = ? 
+                intersect 
+                select id, titre from serie 
+                inner join serie_public on serie.id = serie_public.id_serie 
+                inner join public on serie_public.id_public = public.id_public 
+                where libelle_public = ?";
+                }
                 ConnectionFactory::makeConnection();
                 $stmt = ConnectionFactory::$db->prepare($sql);
                 $stmt -> bindParam(1,$genre);
