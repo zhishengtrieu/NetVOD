@@ -8,20 +8,25 @@ class DisplayCommentAction extends Action{
         $html = "";
         if ($this->http_method == 'POST') {
             if (isset($_SESSION['user'])) {
-                $id = (int)$_POST['id'];
+                $id = (int)filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
                 $sql = "Select email, commentaire, note from commentaire
                         inner join serie on commentaire.serie_id = serie.id
                         where serie_id = $id";
                 ConnectionFactory::makeConnection();
                 $stmt = ConnectionFactory::$db->prepare($sql);
                 $stmt->execute();
-                foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
-                    $html .= "Commentaire de " .$row['email']." : ".$row['commentaire'] . "<br>";
-                    $html .= "Note : " .$row['note']."<br>";
+                if ($stmt->rowCount() == 0){
+                    $html .= "Pas de commentaire pour cette série";
+                } else {
+                    foreach ($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+                        $html .= "Commentaire de " .$row['email']." : ".$row['commentaire'] . "<br>";
+                        $html .= "Note : " .$row['note']."<br>";
+                    }
+
                 }
                 $html .=<<<END
                    <form action='?action=display-liste-episodes&id=$id' method='GET' >
-                    <input type='submit' value='Retour'>
+                    <input type='submit' value='Retour à l accueil>
                   </form>
         END;
             }
