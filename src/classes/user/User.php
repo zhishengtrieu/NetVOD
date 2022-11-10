@@ -161,7 +161,8 @@ class User{
         $query->execute();
         foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $row){
             $serie = Serie::find((int) $row['serie_id']);
-            $this->VideosEnCours[$serie] = $row['episode_id'];
+            $episode = Episode::find((int) $row['episode_id']);
+            $this->VideosEnCours[$serie->id] = $episode;
         }
 
         //on recupere les series visionnees

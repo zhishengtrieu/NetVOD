@@ -16,6 +16,7 @@ use netvod\action\DisplayHomeAction;
 use netvod\action\SetFavorisAction;
 use netvod\action\AddCommentAction;
 use netvod\action\DisplayProfilAction;
+use netvod\action\LogoutAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
@@ -64,11 +65,13 @@ class Dispatcher{
             case "display-comment" :
                 $res = (new DisplayCommentAction())->execute();
                 break;
+            case "logout" :
+                $res = (new LogoutAction())->execute();
+                break;
             default:
                 $res = "<p>Bienvenue dans la version wish de Netflix !</p>";
                 if (isset($_SESSION['user'])){
                     $res .= (new DisplayHomeAction())->execute();
-                    
                 }
         }
 
