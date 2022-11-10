@@ -24,7 +24,9 @@ class EpisodeRenderer implements Renderer{
         return $html;
     }
 
+    //affichage en mode court
     private function renderCompact():string{
+        //affiche le titre en mode lien et la video
         $html = "
         <div class='episode'>
             <div class='episode_title'>
@@ -42,7 +44,9 @@ class EpisodeRenderer implements Renderer{
         return $html;
     }
 
+    //affichage en mode long
     private function renderLong():string{
+        //affiche le titre de l'episode, le resume, la duree, et la video d'un episode
         $html = "
         <div class='episode'>
             <div class='episode_title'>
@@ -54,6 +58,7 @@ class EpisodeRenderer implements Renderer{
                 </video>
         </div>
         ";
+        //on selectionne l'id de la serie correspondant a l'id de l'episode
         $query = "select serie_id from episode where id = ?";
         $id = $this->episode->id;
         $st = ConnectionFactory::$db->prepare($query);
@@ -61,6 +66,7 @@ class EpisodeRenderer implements Renderer{
         $st->execute();
         $row= $st->fetch(PDO::FETCH_ASSOC);
         $id_serie = $row['serie_id'];
+        //on fait un formualaire pour chosir la note et enregistrer un commentaire
         $html .= <<<END
                 <form action="?action=add-comment&id_serie=$id_serie" method="POST">
                     <input type="string" name="commentaire" placeholder="comment">
