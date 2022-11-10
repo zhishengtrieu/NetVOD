@@ -43,8 +43,13 @@ class SerieRenderer implements Renderer{
         <h3>Date de sortie : {$this->serie->annee}</h3>
         <h3>Date d'ajout : {$this->serie->dateAjout}</h3>
         <h3>Nombre d'épisodes : {$this->serie->nbEpisodes}</h3>
-        <h3>Note moyenne : {$this->serie->calculerMoyenneNote()}</h3>
-        <h3>Genres : ";
+        <h3>Note moyenne : {$this->serie->calculerMoyenneNote()}</h3>";
+        $html.= <<<END
+        <form action="?action=display-comment" method="POST">
+            <input type ="submit" value="Voir les commentaires">
+        </form>
+        END;
+        $html.= "<h3>Genres : ";
         $html .= implode(", ", $this->serie->genres) . "</h3>
         <h3>Public : ";
         $html .= implode(", ", $this->serie->public) . "</h3>";
