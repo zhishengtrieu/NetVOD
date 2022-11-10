@@ -22,7 +22,7 @@ class DisplayListeEpisodesAction extends Action{
                     //on recupere l'id de la serie
                     $id = $_GET['id'];
                     //on cherche les episodes de la serie correspondant a l'id
-                    $serie = Serie::find($id);
+                    $serie = Serie::find((int) $id);
                     //on execute la methode long du renderer de serie
                     $res = (new SerieRenderer($serie))->render(Renderer::LONG);
                 }else{
