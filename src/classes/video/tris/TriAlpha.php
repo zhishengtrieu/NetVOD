@@ -26,7 +26,7 @@ class TriAlpha implements Tri{
             $serie = new Serie(intval($id),$titre);
             $catalogue->ajouterSerie($serie);
         }
-        //on affiche le catalogue
+        //on affiche le catalogue et on le retourne
         $res .= (new CatalogueRenderer($catalogue))->render(Renderer::COMPACT);
         return $res;
     }
