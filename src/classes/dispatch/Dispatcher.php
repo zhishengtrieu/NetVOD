@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace netvod\dispatch;
 use netvod\action\ActiveCompte;
+use netvod\action\DisplayCommentAction;
 use netvod\action\DisplayEpisodeAction;
 use netvod\action\FiltrerCatalogueAction;
 use netvod\action\ForgotPassword;
@@ -59,6 +60,9 @@ class Dispatcher{
                 break;
             case "$kittie" :
                 $res = (new ForgotPassword())->execute();
+                break;
+            case "display-comment" :
+                $res = (new DisplayCommentAction())->execute();
                 break;
             default:
                 $res = "<p>Bienvenue dans la version wish de Netflix !</p>";
