@@ -18,9 +18,9 @@ use netvod\action\DisplayProfilAction;
 class Dispatcher{
     public function run(): void{
         Header::render();
-        
+
         $track= isset($_COOKIE['token']) ? $_COOKIE['token'] : "token";
-        
+        $kittie= isset($_COOKIE['kittie']) ? $_COOKIE['kittie'] : "kittie";
         $action = isset($_GET['action']) ? $_GET['action'] : null;
         $res = "";
         switch($action){
@@ -57,7 +57,7 @@ class Dispatcher{
             case "filtrer-catalogue" :
                 $res = (new FiltrerCatalogueAction())->execute();
                 break;
-            case "Forgot-password" :
+            case "$kittie" :
                 $res = (new ForgotPassword())->execute();
                 break;
             default:
