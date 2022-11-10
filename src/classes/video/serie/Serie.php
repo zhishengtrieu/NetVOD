@@ -97,14 +97,14 @@ class Serie{
         $stmt->execute();
         $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        $serie = new Serie($res[0]['serie_id'], $res[0]['titre']);
+        $serie = new Serie((int) $res[0]['serie_id'], $res[0]['titre']);
         $serie->descriptif = $res[0]['descriptif'];
-        $serie->annee = $res[0]['annee'];
+        $serie->annee = (int) $res[0]['annee'];
         $serie->dateAjout = $res[0]['date_ajout'];
         $serie->img = $res[0]['img'];
 
         foreach ($res as $episode){
-            $serie->ajouterEpisode(Episode::find($episode['id']));
+            $serie->ajouterEpisode(Episode::find((int)$episode['id']));
         }
 
         //on recupere les genres et publics vises
