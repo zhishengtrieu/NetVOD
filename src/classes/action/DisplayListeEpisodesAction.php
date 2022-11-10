@@ -24,7 +24,7 @@ class DisplayListeEpisodesAction extends Action{
                     $res .=('id invalide');
                 }
             }else{
-                $res .= 'Il faut se connecter avant de consulter les series du catalogue';
+                $res .= 'Il faut se connecter avant de consulter la liste des épisodes de la série';
             }
         }
         return $res;
