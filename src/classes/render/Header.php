@@ -2,6 +2,13 @@
 namespace netvod\render;
 class Header{
     public static function render(){
+        if(isset($_SESSION['user'])){
+            $profilAction =  "display-profil";
+            $txt = "Afficher le profil"; 
+        }else{
+            $profilAction = "signin";
+            $txt = "S'inscrire/Se connecter" ; 
+        }
         echo '
         <!DOCTYPE html>
         <html lang="fr">
@@ -20,13 +27,11 @@ class Header{
                     <ul>
                         <li><a href="index.php">Accueil</a></li>
                         <li><a href="index.php?action=add-user">Inscription</a></li>
-                        <li><a href="index.php?action=signin">Se connecter</a></li>
                         <li><a href="index.php?action=afficherCatalogue">Afficher le catalogue</a></li>
-                        <li><a href="index.php?action=display-profil">Afficher le profil</a></li>
+                        <li><a href="index.php?action='.$profilAction.'">'.$txt.'</a></li>
                     </ul>
                 </nav>
-            </header>
-    ';
+            </header>';
     }
 
 }
