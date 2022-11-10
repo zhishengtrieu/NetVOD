@@ -10,6 +10,11 @@ class SelecteurTri{
     const TRI_NB_PETIT_EPISODE = 4;
     const TRI_MOYENNE_NOTE_PLUS_GRANDE =5;
     const TRI_MOYENNE_NOTE_PLUS_PETITE =6;
+    const TRI_DATE_AJOUT_CROISSANTE = 7;
+    const TRI_DATE_AJOUT_DECROISSANTE = 8;
+    const TRI_ANNEE_CROISSANTE =9;
+    const TRI_ANNEE_DECROISSANTE = 10;
+
 
     public static function selectionnerTri(int $indice_selection) : ?Tri{
         switch ($indice_selection){
@@ -30,6 +35,18 @@ class SelecteurTri{
             break;
             case self::TRI_MOYENNE_NOTE_PLUS_PETITE:
                 $tri = new TriMoyennePlusPetite();
+            break;
+            case self::TRI_DATE_AJOUT_CROISSANTE:
+                $tri = new TriDateAjoutCroissante();
+            break;
+            case self::TRI_DATE_AJOUT_DECROISSANTE:
+                $tri = new TriDateAjoutDecroissante();
+            break;
+            case self::TRI_ANNEE_CROISSANTE:
+                $tri = new TriAnneeCroissante();
+            break;
+            case self::TRI_ANNEE_DECROISSANTE:
+                $tri = new TriAnneeDecroissante();
             break;
             default:
                 $tri = null;

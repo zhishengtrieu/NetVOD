@@ -47,7 +47,7 @@ class Serie{
     /**
      * Methode pour calculer la note moyenne de la serie
      */
-    public function calculerMoyenneNote() :string{
+    public function calculerMoyenneNote() :?string{
         $serie_id = $this -> id;
         $sql = "Select AVG(note) from commentaire
         inner join serie on commentaire.serie_id = serie.id
@@ -59,8 +59,8 @@ class Serie{
         return $res['AVG(note)'];
     }
 
-    public function afficherCommentaires() : array{
-        $serie_id = $this -> id;
+    public function afficherCommentaires(int $id) : array{
+        $serie_id = $id;
         $sql = "Select commentaire from commentaire
         inner join serie on commentaire.serie_id = serie.id
         where serie_id = $serie_id";

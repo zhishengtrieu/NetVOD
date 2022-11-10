@@ -33,7 +33,7 @@ class EpisodeRenderer implements Renderer{
                     <a href='?action=display-episode&id={$this->episode->id}'>{$this->episode->titre}</a>
                     </li>
                 </h3>
-                <p>numero de l episode: {$this->episode->numero}, duree: {$this->episode->duree} minutes</p>
+                <p>Episode : {$this->episode->numero}, durée : {$this->episode->duree} minutes</p>
                 <video controls width='300'>
                     <source src='video/{$this->episode->path}' type='video/mp4'>
                 </video>

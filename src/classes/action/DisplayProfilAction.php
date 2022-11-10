@@ -17,7 +17,7 @@ class DisplayProfilAction extends Action
             $user = unserialize($_SESSION['user']);
             $email = $user->email;
             if ($this->http_method == 'POST') {
-                if (isset($_POST['nom'])&&isset($_POST['prenom'])&&($_POST['pref']!="")) {
+                if (isset($_POST['nom']) || isset($_POST['prenom'])||($_POST['pref']!="")) {
                     if (isset($_POST['nom'])) {
                         $nom = filter_var($_POST['nom'], FILTER_SANITIZE_STRING);
                         if ($nom  != "") {
