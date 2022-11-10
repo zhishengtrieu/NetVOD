@@ -40,7 +40,8 @@ class AddCommentAction extends Action
                     $_SESSION['user'] = serialize($user);
                 } else {
                     $res .= 'Il faut se connecter avant d ajouter un commentaire';
-                }}
+                }
+                }
             }
         }
         return $res;
