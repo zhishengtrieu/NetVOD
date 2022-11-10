@@ -4,6 +4,7 @@ namespace netvod\dispatch;
 use netvod\action\ActiveCompte;
 use netvod\action\DisplayEpisodeAction;
 use netvod\action\FiltrerCatalogueAction;
+use netvod\action\ForgotPassword;
 use netvod\action\RechercherCatalogueAction;
 use netvod\render\Header;
 use netvod\action\DisplayListeEpisodesAction;
@@ -55,6 +56,9 @@ class Dispatcher{
                 break;
             case "filtrer-catalogue" :
                 $res = (new FiltrerCatalogueAction())->execute();
+                break;
+            case "Forgot-password" :
+                $res = (new ForgotPassword())->execute();
                 break;
             default:
                 $res = "<p>Bienvenue dans la version wish de Netflix !</p>";

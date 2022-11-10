@@ -4,7 +4,7 @@ namespace netvod\auth;
 use netvod\user\User;
 use netvod\db\ConnectionFactory;
 use netvod\audio\lists\Playlist;
-
+use netvod\exception\AccesControlException;
 //Classe Auth
 class Auth{
 
@@ -48,7 +48,7 @@ class Auth{
         $result = $req->fetch();
         if (!self::emailLibre($email)){
             if (password_verify($password, $result[0])){
-                $res = new User($email, $password, (int) $result[1]);
+                $res = new User($email, $password, intval( $result[1]));
                 $_SESSION['user'] = serialize($res);
             }
         }

@@ -28,6 +28,14 @@ class DisplayEpisodeAction extends Action{
                         */
                         $serie = Serie::find($episode->idSerie);
                         $user->addSerieEnCours($serie);
+                        if ($episode->numero == $serie->nbEpisodes){
+                            /*
+                            Lorsqu’un épisode est le dernier d’une série, la série est automatiquement ajoutée à la liste
+                            « visionnée » de l’utilisateur
+                            */
+                            $user->removeSerieEnCours($serie);
+                            $user->addSerieVisionnee($serie);
+                        }
                         $_SESSION['user'] = serialize($user);
                     }catch(AccessControlException $e){
                         $res = $e->getMessage();

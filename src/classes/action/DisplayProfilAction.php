@@ -46,7 +46,7 @@ class DisplayProfilAction extends Action
                     }
                     if (isset($_POST['pref'])) {
                         $id = filter_var($_POST['pref'], FILTER_SANITIZE_STRING);
-                        if ($$id != "") {
+                        if ($id != "") {
 
                             $sqlo = ("select id_genre from genre where libelle_genre=?");
                             $st = ConnectionFactory::$db->prepare($sqlo);
@@ -73,10 +73,10 @@ class DisplayProfilAction extends Action
 
             } else {
                 $res = <<<END
-            <form action="?action=display-profil" method="POST">
-            <input type="text" name="nom" placeholder="Nom" value="$user->nom">
-            <input type="text" name="prenom" placeholder="Prenom" value="$user->prenom">
-            <select name='pref'>
+                <form action="?action=display-profil" method="POST">
+                <input type="text" name="nom" placeholder="Nom" value="$user->nom">
+                <input type="text" name="prenom" placeholder="Prenom" value="$user->prenom">
+                <select name='pref'>
                     <option value="">Selectionner un genre préféré</option>
                     <option value="action">Action</option>
                     <option value="thriller">Thriller</option>
