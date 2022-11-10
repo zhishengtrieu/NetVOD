@@ -118,9 +118,8 @@ class User{
 
     public function removeSerieEnCours(Serie $serie){
         ConnectionFactory::makeConnection();
-        if (in_array($serie, $this->VideosEnCours)){
-            $key = array_search($serie, $this->VideosEnCours);
-            unset($this->VideosEnCours[$key]);
+        if (array_key_exists($serie->id, $this->VideosEnCours)){
+            unset($this->VideosEnCours[$serie->id]);
             $sql = "DELETE from serie_en_cours where email = '$this->email' and serie_id = $serie->id";
             $stmt = ConnectionFactory::$db->prepare($sql);
             $stmt->execute();

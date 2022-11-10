@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `serie_favoris` (
 -- Table structure for table `serie_visonnees`
 --
 
-DROP TABLE IF EXISTS `serie_visonnees`;
+DROP TABLE IF EXISTS `serie_visionnees`;
 CREATE TABLE IF NOT EXISTS `serie_visonnees` (
   `email` varchar(256) NOT NULL,
   `serie_id` int(2) NOT NULL
