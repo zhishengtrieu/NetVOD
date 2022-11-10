@@ -9,6 +9,8 @@ class AddCommentAction extends Action
 
     public function execute(): string
     {
+        ConnectionFactory::makeConnection();
+
         $res = "";
         if ($this->http_method == 'POST') {
             if (isset($_POST['commentaire']) and isset($_POST['note'])) {
