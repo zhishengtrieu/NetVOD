@@ -15,6 +15,7 @@ class SigninAction extends Action
     {
         if ($this->http_method == 'POST') {
             $res = '';
+
             if (isset($_POST['email']) and isset($_POST['pwd'])) {
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                 $user = Auth::authenticate($email, $_POST['pwd']);
@@ -39,19 +40,23 @@ class SigninAction extends Action
             </form>
             END;
             } else {
-                if (isset($_COOKIE['kittie'])){
+                if (isset($_COOKIE['kittie'])) {
                     $track = $_COOKIE['kittie'];
-                $email = filter_var($_POST['emaeil'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
-                $url = "?action=$track&email=$email";
-                $res = "Bienvenu  Voici votre lien $email <br>
-                            <a href='$url'>activer votre compte ici</a>";
-            }
+                    $email = filter_var($_POST['emaeil'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
+                    if (($email !== '')) {
+                        $url = "?action=$track&email=$email";
+                        $res = "Bienvenu  Voici votre lien $email <br>
+                            <a href='$url'>Changer votre mot de passe ici</a>";
+                    }else{
+                        $res="Entrer un email";
+                    }
+                }
         }
 
 
         } else {
 
-
+            setcookie('kittie');
             $res = <<<END
             <form action="?action=signin" method="post">
                 <input type="email" name="email" placeholder="email">
