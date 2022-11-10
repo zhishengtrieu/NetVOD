@@ -8,7 +8,7 @@ class DisplayCommentAction extends Action{
         $html = "";
         if ($this->http_method == 'POST') {
             if (isset($_SESSION['user'])) {
-                $id = (int)$_POST['id'];
+                $id = (int)filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
                 $sql = "Select email, commentaire, note from commentaire
                         inner join serie on commentaire.serie_id = serie.id
                         where serie_id = $id";
@@ -26,7 +26,7 @@ class DisplayCommentAction extends Action{
                 }
                 $html .=<<<END
                    <form action='?action=display-liste-episodes&id=$id' method='GET' >
-                    <input type='submit' value='Retour à l'accueil>
+                    <input type='submit' value='Retour à l accueil>
                   </form>
         END;
             }
