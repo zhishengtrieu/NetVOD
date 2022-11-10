@@ -74,7 +74,6 @@ class EpisodeRenderer implements Renderer{
                         <option value="4">4 etoiles</option>
                         <option value="4.5">4.5 etoiles</option>
                         <option value="5">5 etoiles</option>
-                        <option value="6">RickRoll etoiles</option>
                     </select>
                     <input type="submit" value="Enregistrer le commentaire">
                 </form>

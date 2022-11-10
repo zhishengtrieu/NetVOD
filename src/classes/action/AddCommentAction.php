@@ -27,8 +27,7 @@ class AddCommentAction extends Action
                     $st -> bindParam(2,$id);
                     $st->execute();
                     $result = $st->fetch(PDO::FETCH_ASSOC);
-                    var_dump($result['COUNT(*)']);
-                    if ((int)$result['COUNT(*)'] === 0) {
+                    if ($result['COUNT(*)'] == 0) {
                         $query2 = "insert into commentaire (email,serie_id, commentaire, note) values (?, ?, ?,?)";
                         $st2 = ConnectionFactory::$db->prepare($query2);
                         $st2 -> bindParam(1,$email);

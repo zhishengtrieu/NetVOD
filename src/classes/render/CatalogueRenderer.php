@@ -42,6 +42,8 @@ class CatalogueRenderer implements Renderer{
                     <option value="2">Trier par titre anti-alphabétique</option>
                     <option value="3">Trier par plus grand nombre d'épisodes</option>
                     <option value="4">Trier par plus petit nombre d'épisodes</option>
+                    <option value="5">Trier par moyenne de serie la plus élevée</option>
+                    <option value="6">Trier par moyenne de serie la plus basse</option>
                 </select>
           <input type='submit' value='trier'>
         </form>
