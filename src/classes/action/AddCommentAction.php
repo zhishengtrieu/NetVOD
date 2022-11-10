@@ -23,11 +23,12 @@ class AddCommentAction extends Action
                     $email = $user->email;
                     $query = "select COUNT(*) from commentaire where email= ? and serie_id = ?";
                     $st = ConnectionFactory::$db->prepare($query);
-                    $st -> bindParam(1,$id);
-                    $st -> bindParam(2,$email);
+                    $st -> bindParam(1,$email);
+                    $st -> bindParam(2,$id);
                     $st->execute();
                     $result = $st->fetch(PDO::FETCH_ASSOC);
-                    if ($result['COUNT(*)'] == 0) {
+                    var_dump($result['COUNT(*)']);
+                    if ((int)$result['COUNT(*)'] === 0) {
                         $query2 = "insert into commentaire (email,serie_id, commentaire, note) values (?, ?, ?,?)";
                         $st2 = ConnectionFactory::$db->prepare($query2);
                         $st2 -> bindParam(1,$email);
