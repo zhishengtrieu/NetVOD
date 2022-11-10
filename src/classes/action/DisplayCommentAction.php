@@ -18,7 +18,6 @@ class DisplayCommentAction extends Action{
                 foreach ($res as $commentaire) {
                     $html .= "Commentaire : $commentaire";
                 }
-
             }
         }
         return $html;
