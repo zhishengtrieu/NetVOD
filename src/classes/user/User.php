@@ -11,6 +11,9 @@ use netvod\video\serie\Serie;
  * - une liste de videos en cours : films ou docus non visionnes en intégralite, series non completees.
  */
 class User{
+    const ADMIN_USER = 100; 
+    const NORMAL_USER = 1;
+    const NO_USER = 0;
     private string $email;
     private string $nom;
     private string $prenom;
@@ -18,8 +21,9 @@ class User{
     private array $VideosPreferees;
     private array $VideosVisionnees;
     private array $VideosEnCours;
+    private int $role;
 
-    public function __construct(string $email, string $password){
+    public function __construct(string $email, string $password, int $role){
         $this->email = $email;
         $this->nom = "";
         $this->prenom = "";
@@ -27,6 +31,7 @@ class User{
         $this->VideosPreferees = [];
         $this->VideosVisionnees = [];
         $this->VideosEnCours = [];
+        $this->role = $role;
     }
 
     public function __get($attribut){

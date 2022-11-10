@@ -18,18 +18,8 @@ class SigninAction extends Action
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                 $user = Auth::authenticate($email, $_POST['pwd']);
                 if ($user != null) {
-                    $db = ConnectionFactory::makeConnection();
-                    $sql = ("select role from user where email=?");
-                    $st = ConnectionFactory::$db->prepare($sql);
-                    $var = $_POST['email'];
-                    $st->bindParam(1, $var);
-                    $st->execute();
-                    $row = $st->fetch();
-                    $role = ($row['role']);
-                    if ($role == 1) {
-                        if ($user != null) {
-                            $res = " Bienvenu ! $email";
-                        }
+                    if ($user->role != USER::NO_USER) {
+                        $res = " Bienvenu ! $email";    
                     } else {
                         $res = "Compte non validé !";
                     }

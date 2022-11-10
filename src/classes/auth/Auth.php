@@ -19,27 +19,47 @@ class Auth{
         return empty($result);
     }
 
-    //Methode permettant de s'autentifier
+    /**
+     * Permet de verifier si l'utilisateur a les droits suffisants pour acceder a la page
+     */
+    public static function checkAccessLevel (int $required): void {
+        $userLevel = (int) unserialize($_SESSION['user'])->role;
+        if ($userLevel < $required){
+            throw new AccesControlException("action non autorisée : droits insuffisants");
+        }
+    }
+
+    /**
+     * methode permettant d'authentifier un utilisateur
+     * d'en creer l'objet et de le stocker dans la session
+     * @param string $email
+     * @param string $password
+     * @return User|null
+     */
     public static function authenticate(string $email, string $password) : ?User{
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return null;
         $res=null;
         ConnectionFactory::makeConnection();
         $req = ConnectionFactory::$db->prepare(
-            "SELECT passwd FROM user WHERE email ='$email'"
+            "SELECT passwd, role FROM user WHERE email ='$email'"
         );
         
         $req->execute();
         $result = $req->fetch();
         if (!self::emailLibre($email)){
             if (password_verify($password, $result[0])){
-                $res = new User($email, $password);
+                $res = new User($email, $password, $result[1]);
                 $_SESSION['user'] = serialize($res);
             }
         }
         return $res;
     }
-
-    //Methode permettant de s'enregistrer dans la base de données
+    /**
+     * Methode permettant de s'enregistrer dans la base de données
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
     public static function register(string $email, string $password) : bool{
         //On verifie que l'email est valide. Si ce n'est pas le cas, on retourne false
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;

@@ -25,6 +25,8 @@ class DisplayProfilAction extends Action
                         $st->bindParam(1, $nom);
                         $st->bindParam(2, $email);
                         $st->execute();
+                        //on met a jour l'objet user
+                        $user->nom = $nom;
                         $res="Changement Profil effecutée";
                     }
                 }
@@ -36,9 +38,14 @@ class DisplayProfilAction extends Action
                         $st->bindParam(1, $ui);
                         $st->bindParam(2, $email);
                         $st->execute();
+                        //on met a jour l'objet user
+                        $user->prenom = $ui;
                         $res="Changement Profil effecutée";
                     }
                 }
+                
+                //on met l'objet user a jour dans la session
+                $_SESSION['user'] = serialize($user);
 
             } else {
                 $res = <<<END
