@@ -19,12 +19,12 @@ class SetFavorisAction extends Action{
                 $user->setSeriePreferee($serie);
                 $_SESSION['user'] = serialize($user);
                 if ($user->favoris($id)){
-                    $res = "La serie a bien ete ajoutee a vos favoris";
+                    $res = "La série a bien été ajoutée à vos favoris";
                 }else{
-                    $res = "La serie a bien ete retiré de vos favoris";
+                    $res = "La série a bien été retirée de vos favoris";
                 }
             }else{
-                $res = "Vous devez etre connecte pour ajouter/retirer une serie aux favoris";
+                $res = "Vous devez être connecté pour ajouter/retirer une série aux favoris";
             }
         }else{
             $res = "Erreur";
