@@ -14,6 +14,7 @@ use PDO;
 
 class DisplayCatalogueAction extends Action{
 
+    //fonction permettant d'affciher le catalogue
     public function execute(): string{
         ConnectionFactory::makeConnection();
         $res = "";
@@ -23,6 +24,7 @@ class DisplayCatalogueAction extends Action{
                     $query = "select id,titre from serie";
                     $st = ConnectionFactory::$db->prepare($query);
                     $st->execute();
+                    //pour chaque titre et id on créer une serie puis on l'ajoute au catalogue
                     foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $row) {
                         $id = $row['id'];
                         $titre = $row['titre'];
@@ -34,8 +36,10 @@ class DisplayCatalogueAction extends Action{
                 $res .= 'Il faut se connecter avant de consulter les series du catalogue';
             }
         }else{
+            //si un tri est selectionner on recuperer l'indice de tri et on lance le selecteur
             $indice_tri = filter_var($_POST['tris'], FILTER_SANITIZE_NUMBER_INT);
             $tri = SelecteurTri::selectionnerTri(intval($indice_tri));
+            //on execute la methode trier
             $res .= $tri->trier();
         }
         return $res;
