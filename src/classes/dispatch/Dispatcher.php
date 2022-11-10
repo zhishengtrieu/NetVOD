@@ -22,7 +22,7 @@ class Dispatcher{
         Header::render();
 
         $track= isset($_COOKIE['token']) ? $_COOKIE['token'] : "token";
-        $kittie= isset($_COOKIE['kittie']) ? $_COOKIE['kittie'] : "kittie";
+        $mdpchangement= isset($_COOKIE['mdpchangement']) ? $_COOKIE['mdpchangement'] : "mdpchangement";
         $action = isset($_GET['action']) ? $_GET['action'] : null;
         $res = "";
         switch($action){
@@ -59,7 +59,7 @@ class Dispatcher{
             case "filtrer-catalogue" :
                 $res = (new FiltrerCatalogueAction())->execute();
                 break;
-            case "$kittie" :
+            case "$mdpchangement" :
                 $res = (new ForgotPassword())->execute();
                 break;
             case "display-comment" :

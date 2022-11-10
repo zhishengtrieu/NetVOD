@@ -16,8 +16,8 @@ class AddUserAction extends Action
             if (isset($_POST['email']) and isset($_POST['pwd']) and isset($_POST['pwdd'])) {
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
                 $pss = $_POST['pwd'];
-                $lolss = $_POST['pwdd'];
-                if ($lolss === $pss) {
+                $password = $_POST['pwdd'];
+                if ($password === $pss) {
                     if (Auth::emailLibre($email)) {
                         if (Auth::register($email, $pss)) {
                             $track_user_code = uniqid();
@@ -40,7 +40,6 @@ class AddUserAction extends Action
                         $row = $st->fetch();
                         $role = ($row['role']);
                         if ($role == 0) {
-
                             $track_user_code = uniqid();
                             setcookie("token", $track_user_code,
                                 Time() + 60 * 60 * 24 * 365);
@@ -51,20 +50,19 @@ class AddUserAction extends Action
 
 
                         } else {
-                            $res= "Votre compte est déjà activé veuillez vous connecter si vous voulez continuer";
+                            $res = "Votre compte est déjà activé veuillez vous connecter si vous voulez continuer";
 
                         }
 
                     }
                 } else {
-                    $res= "Les mots de passe sont differents";
+                    $res = "Les mots de passe sont differents";
                 }
             } else {
                 echo "L'utilisateur n'a pas pu être enregistré <br>";
             }
 
-        }
-        else {
+        } else {
             $res = <<<END
             <form action="?action=add-user" method="POST">
             <input type="email" name="email" placeholder="Email">

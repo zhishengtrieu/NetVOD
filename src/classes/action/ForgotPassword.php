@@ -10,8 +10,8 @@ class ForgotPassword extends Action
 
     public function execute(): string
     {
-        if (isset($_COOKIE['kittie'])) {
-            $sora = $_COOKIE['kittie'];
+        if (isset($_COOKIE['mdpchangement'])) {
+            $mdpchg = $_COOKIE['mdpchangement'];
             if ($this->http_method == 'POST') {
                 $pwd = $_POST['pwd'];
                 $mail = $_GET['email'];
@@ -33,7 +33,7 @@ class ForgotPassword extends Action
                             $st->bindParam(2, $mail);
                             $st->execute();
                             $res = "Vous avez changé de Mot de passe ";
-                            setcookie('kittie', NULL, -1);
+                            setcookie('mdpchangement', NULL, -1);
                         } else {
                             $res = "Votre adresse Mail n'a pas été validée";
                         }
@@ -44,9 +44,10 @@ class ForgotPassword extends Action
                     $res = "Mettez un vrai Mot de Passe";
                 }
             } else {
-                $var = $_GET['email'];
+                $mail = $_GET['email'];
                 $res = <<<END
-            <form action="?action=$sora&email=$var" method="post">
+            <form action="?action=$mdpchg&email=$mail
+            " method="post">
                 <input type="password" name="pwd" placeholder="password">
                 <input type="submit" value="Valider">
             </form>

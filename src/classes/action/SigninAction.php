@@ -36,7 +36,7 @@ class SigninAction extends Action
             if (isset($_POST['yu'])) {
                 //on cree un nouveau cookie
                 $track = uniqid();
-                setcookie("kittie", $track,
+                setcookie("mdpchangement", $track,
                     Time() + 60 * 60 * 24 * 365);
                 //on recupere l'email de l'utilisateur pour le formulaire de mot de passe oublie
                 $res = <<<END
@@ -45,8 +45,8 @@ class SigninAction extends Action
                         </form>
                     END;
                 //dans le cas ou le cookie est set et que l'email est recupere
-            } elseif (isset($_COOKIE['kittie'])) {
-                $track = $_COOKIE['kittie'];
+            } elseif (isset($_COOKIE['mdpchangement'])) {
+                $track = $_COOKIE['mdpchangement'];
                 $email = filter_var($_POST['emaeil'], FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                 //on verifie que l'email est bien dans la base de donnee
 
@@ -78,7 +78,7 @@ class SigninAction extends Action
             }
         } else {
             //on affiche le formulaire de connexion
-            setcookie('kittie');
+            setcookie('mdpchangement');
             $res = <<<END
             <form action="?action=signin" method="post">
                 <input type="email" name="email" placeholder="email">
