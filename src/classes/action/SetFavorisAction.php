@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Permet d'ajouter une serie a la liste 
  * des favoris de l'user
