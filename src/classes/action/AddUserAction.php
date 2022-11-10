@@ -26,7 +26,7 @@ class AddUserAction extends Action
 
                             $url = "?action=$track_user_code&email=$email";
                             $res = "Bienvenu  Voici votre lien $email <br>
-                            <a href='$url'>activer votre compte ici</a>";
+                            <a href='$url'>Activer votre compte ici</a>";
                         } else {
                             $res = "Pensez a mettre un mail valide et un mot de passe de plus de 10 caractères";
                         }
@@ -47,17 +47,17 @@ class AddUserAction extends Action
 
                             $url = "?action=$track_user_code&email=$email";
                             $res = "L'utilisateur est déja présent dans notre base de donnée merci d'activer votre compte<br>
-                            <a href='$url'>activer votre compte ici</a>";
+                            <a href='$url'>Activer votre compte ici</a>";
 
 
                         } else {
-                            $res= "Votre compte est déjà activer veuillez vous-connectez si vous voulez continuer";
+                            $res= "Votre compte est déjà activé veuillez vous connecter si vous voulez continuer";
 
                         }
 
                     }
                 } else {
-                    $res= "Les mots de passe differents";
+                    $res= "Les mots de passe sont differents";
                 }
             } else {
                 echo "L'utilisateur n'a pas pu être enregistré <br>";
@@ -70,7 +70,7 @@ class AddUserAction extends Action
             <input type="email" name="email" placeholder="Email">
             <input type="password" name="pwd" placeholder="password">
             <input type="password" name="pwdd" placeholder="password">
-            <input type="submit" value="Connexion">
+            <input type="submit" value="Inscription">
             </form>
             END;
 

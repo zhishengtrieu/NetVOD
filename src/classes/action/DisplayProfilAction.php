@@ -28,7 +28,7 @@ class DisplayProfilAction extends Action
                             $st->execute();
                             //on met a jour l'objet user
                             $user->nom = $nom;
-                            $res = "Changement Profil effecutée";
+                            $res = "Changement profil effecuté";
                         }
                     }
                     if (isset($_POST['prenom'])) {
@@ -41,7 +41,7 @@ class DisplayProfilAction extends Action
                             $st->execute();
                             //on met a jour l'objet user
                             $user->prenom = $ui;
-                            $res = "Changement Profil effecutée";
+                            $res = "Changement profil effecuté";
                         }
                     }
                     if (isset($_POST['pref'])) {
@@ -61,11 +61,11 @@ class DisplayProfilAction extends Action
                             $st->bindParam(1, $ids);
                             $st->bindParam(2, $email);
                             $st->execute();
-                            $res = "Changement Profil effecutée";
+                            $res = "Changement profil effecuté";
                         }
                     }
                 }else{
-                    $res="Veuillez au moins rentrer au moins une information" ;
+                    $res="Veuillez au minimum rentrer une information" ;
                 }
                 
                 //on met l'objet user a jour dans la session
@@ -90,7 +90,7 @@ class DisplayProfilAction extends Action
             END;
             }
         }else{
-            $res="Veuillez-vous connectez !";
+            $res="Veuillez-vous connecter !";
         }
         return $res;
     }

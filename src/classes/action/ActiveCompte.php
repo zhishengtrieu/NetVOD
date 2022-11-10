@@ -20,7 +20,7 @@ class ActiveCompte extends Action
             $st->execute();
 
         } else {
-            echo "lien expire";
+            echo "Lien expire";
         }
 
         return "Votre adresse mail est validé !";
