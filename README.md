@@ -17,7 +17,7 @@ If you forgot your password, you could reset it by clicking on the link "Mot de 
 After you are logged in, click on the button “Afficher le catalogue” to access 	at the catalogue. You can filter or order the catalogue by category, keywords, type and public type.
 
 
-##Sort the catalogue by key-words
+## Sort the catalogue by key-words
 At the top of the catalogue, you can sort the catalogue by keywords. For this, click in the text area and enter your key-word
 
 ## Sort by alphabetical order
@@ -40,7 +40,7 @@ Click on a series for access to it. After, you can see the details of the series
 ## Choose an episode
 If you click on an episode, you can see the details of the episode (name, description) and you can see the video. Moreover, the latter is added to the watching list.
 
-##Add a comment
+## Add a comment
 You can also add a comment and a rating to a series or an episode. For this, enter your comment, and your rating and click on "Ajouter un commentaire".
 
 
@@ -48,10 +48,10 @@ You can also add a comment and a rating to a series or an episode. For this, ent
 When we are watching the last episode of the series, the application moves the series to the list of finished series.
 
 
-##Home Page
+## Home Page
 On the home page "Accueil", when you do not register, just show “Bienvenue Dans la version wish de Netflix !”. When you are connected, you can see your email. When you go to the catalogue you can add a series to a liked list, it will show on your home page. You can also put a series in your watched list when you check a series, and you didn't watch the entire series. And if you complete a series, it would put automatically in your watching list.
 
-##Profile
+## Profile
 Only if you are connected, can you access your profile page.
 On the profile page "Mon Profil", You can see that you can change your surname, your name and your favourite type of series. When you submit it, it will be registered in our database, and you can change it at any time you want. There is also a disconnect button if you want to log out of your account.
 
