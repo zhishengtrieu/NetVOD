@@ -8,7 +8,7 @@ use netvod\audio\lists\Playlist;
 use netvod\db\ConnectionFactory;
 use netvod\render\AudioListRenderer;
 use netvod\user\User;
-use netvod\auth\AccessControlException;
+use netvod\exception\AccessControlException;
 
 class SigninAction extends Action
 {
@@ -25,7 +25,7 @@ class SigninAction extends Action
                         Auth::checkAccessLevel(USER::NORMAL_USER);
                         $res = " Bienvenu ! $email";
                     } catch (AccessControlException $e) {
-                        $res .= $e->getMessage();
+                        $res .= $e->getMessage() . "<br>Il faut d'abord activer votre compte";
                     }
                 } else {
                     $res = "L'authentification a échoué";
@@ -33,7 +33,7 @@ class SigninAction extends Action
 
                 //on gere aussi le cas ou le mot de passe a ete oublie
             }
-            if (isset($_POST['yu'])) {
+            if (isset($_POST['forgot'])) {
                 //on cree un nouveau cookie
                 $track = uniqid();
                 setcookie("mdpchangement", $track,
@@ -81,10 +81,10 @@ class SigninAction extends Action
             setcookie('mdpchangement');
             $res = <<<END
             <form action="?action=signin" method="post">
-                <input type="email" name="email" placeholder="email">
-                <input type="password" name="pwd" placeholder="password">
-                <input type="submit" value="Se connecter">
-                <input type="submit" name='yu'value="Mot de passe oublié ?">
+                <input type="email" name="email" placeholder="email"><br>
+                <input type="password" name="pwd" placeholder="password"><br>
+                <input type="submit" value="Se connecter"><br>
+                <input type="submit" name='forgot' value="Mot de passe oublié ?">
             </form>
             END;
         }

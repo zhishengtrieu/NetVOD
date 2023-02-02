@@ -99,19 +99,22 @@ class User{
      */
     public function addSerieEnCours(Serie $serie, Episode $episode){
         ConnectionFactory::makeConnection();
-        //on regarde si la serie est deja une cle de la liste
-        if (!array_key_exists($serie->id, $this->VideosEnCours)){
-            $this->VideosEnCours[$serie->id] = $episode;
-            $sql = "INSERT INTO serie_en_cours VALUES ('$this->email', $serie->id, $episode->id)";
-            $stmt = ConnectionFactory::$db->prepare($sql);
-            $stmt->execute();
-        }else{
-            //on regarde si l'episode courant est plus recent que celui en cours
-            if ($this->VideosEnCours[$serie->id]->numero < $episode->numero){
+        //une video en cours est une serie non visionnee
+        if (!in_array($serie, $this->VideosVisionnees)){
+            //on regarde si la serie est deja une cle de la liste
+            if (!array_key_exists($serie->id, $this->VideosEnCours)){
                 $this->VideosEnCours[$serie->id] = $episode;
-                $sql = "UPDATE serie_en_cours SET episode_id = $episode->id WHERE email = '$this->email' AND serie_id = $serie->id";
+                $sql = "INSERT INTO serie_en_cours VALUES ('$this->email', $serie->id, $episode->id)";
                 $stmt = ConnectionFactory::$db->prepare($sql);
                 $stmt->execute();
+            }else{
+                //on regarde si l'episode courant est plus recent que celui en cours
+                if ($this->VideosEnCours[$serie->id]->numero < $episode->numero){
+                    $this->VideosEnCours[$serie->id] = $episode;
+                    $sql = "UPDATE serie_en_cours SET episode_id = $episode->id WHERE email = '$this->email' AND serie_id = $serie->id";
+                    $stmt = ConnectionFactory::$db->prepare($sql);
+                    $stmt->execute();
+                }
             }
         }
     }

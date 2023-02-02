@@ -1,6 +1,6 @@
 body{
     background-color: silver;
-    font-family: 'Open Sans', sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
     color: #333;
     line-height: 1.5;
@@ -25,6 +25,7 @@ header h1{
     margin: 0;
     padding: 0;
     grid-column: 1;
+    color : red;
 }
 
 nav{
@@ -49,7 +50,7 @@ nav li {
 
 nav a{
     text-decoration: none;
-    color : blue;
+    color : white;
     font-size: 1.3em;
     text-decoration: none;
     line-height: 50px;
@@ -59,8 +60,7 @@ nav a{
 }
 
 nav li:hover {
-    background-color: #2339ff8e;
-    color: #FFFFFF;
+    background-color: red;
 }
 
 #content{
@@ -72,4 +72,29 @@ nav li:hover {
     border-radius:10px;
     padding: 20px;
     margin-top: 5%;
+}
+
+input{
+	border-radius:10px;
+	padding:10px;
+	margin:20px;
+	border:none;
+	font-size:15px;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    cursor:pointer;
+	border-radius:10px;
+	padding:10px;
+	margin:20px;
+	background-color: #013AD1;
+	color: white;
+	border:none;
+	font-size:15px;
+}
+
+input[type=submit]:hover{
+	background-color: red;
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
+	transform:scale(1.1,1.1);
 }
