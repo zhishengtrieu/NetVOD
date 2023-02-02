@@ -20,6 +20,7 @@ class Header{
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>NetVOD</title>
             <link rel="stylesheet" href="src/css/style.css">
+            <link rel="icon" type="image/png" href="img/icon.png" />
         </head>
 
         <body>
