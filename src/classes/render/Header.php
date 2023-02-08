@@ -6,7 +6,7 @@ class Header{
     public static function render(){
         if(isset($_SESSION['user'])){
             $profilAction =  "display-profil";
-            $txt = "Afficher le profil"; 
+            $txt = "Profil"; 
         }else{
             $profilAction = "signin";
             $txt = "S'inscrire/Se connecter" ; 
@@ -29,7 +29,6 @@ class Header{
                 <nav>
                     <ul>
                         <li><a href="index.php">Accueil</a></li>
-                        <li><a href="index.php?action=add-user">Inscription</a></li>
                         <li><a href="index.php?action=afficherCatalogue">Afficher le catalogue</a></li>
                         <li><a href="index.php?action='.$profilAction.'">'.$txt.'</a></li>
                     </ul>

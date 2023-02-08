@@ -98,3 +98,15 @@ input[type=submit]:hover{
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
 	transform:scale(1.1,1.1);
 }
+
+#redirection p a{
+	color:blue;
+	text-decoration: none;
+	border-radius:5px;
+
+}
+
+#redirection p a:hover{
+	color:red;
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
+}

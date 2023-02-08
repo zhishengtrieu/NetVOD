@@ -64,12 +64,16 @@ class AddUserAction extends Action
 
         } else {
             $res = <<<END
+            <h1>Inscription</h1>
             <form action="?action=add-user" method="POST">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="pwd" placeholder="password">
-            <input type="password" name="pwdd" placeholder="password">
-            <input type="submit" value="Inscription">
+                <input type="email" name="email" placeholder="Email"><br>
+                <input type="password" name="pwd" placeholder="password"><br>
+                <input type="password" name="pwdd" placeholder="password"><br>
+                <input type="submit" value="Inscription"><br>
             </form>
+            <div id="redirection">
+                <p>Déjà inscrit ? <a href="index.php?action=signin">Connectez-vous !</a></p>
+            </div>
             END;
 
         }

@@ -80,12 +80,16 @@ class SigninAction extends Action
             //on affiche le formulaire de connexion
             setcookie('mdpchangement');
             $res = <<<END
+            <h1>Connexion</h1>
             <form action="?action=signin" method="post">
                 <input type="email" name="email" placeholder="email"><br>
                 <input type="password" name="pwd" placeholder="password"><br>
                 <input type="submit" value="Se connecter"><br>
                 <input type="submit" name='forgot' value="Mot de passe oublié ?">
             </form>
+            <div id="redirection">
+                <p>Toujours pas inscrit ? <a href="index.php?action=add-user">Inscrivez-vous !</a></p>
+            </div>
             END;
         }
         return $res;
