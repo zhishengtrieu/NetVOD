@@ -25,10 +25,9 @@ class Header{
 
         <body>
             <header>
-                <h1>NetVOD</h1>
+                <h1><a href="index.php">NetVOD</a></h1>
                 <nav>
                     <ul>
-                        <li><a href="index.php">Accueil</a></li>
                         <li><a href="index.php?action=afficherCatalogue">Afficher le catalogue</a></li>
                         <li><a href="index.php?action='.$profilAction.'">'.$txt.'</a></li>
                     </ul>

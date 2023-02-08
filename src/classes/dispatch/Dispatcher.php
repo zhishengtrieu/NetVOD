@@ -69,7 +69,7 @@ class Dispatcher{
                 $res = (new LogoutAction())->execute();
                 break;
             default:
-                $res = "<p>Bienvenue dans la version wish de Netflix !</p>";
+                $res = "<p>Bienvenue dans la demo de NetVOD !</p>";
                 if (isset($_SESSION['user'])){
                     $res .= (new DisplayHomeAction())->execute();
                 }

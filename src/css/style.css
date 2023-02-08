@@ -12,6 +12,10 @@ body{
     background-size:cover;
 }
 
+a{
+    text-decoration: none;
+}
+
 header{
     background-color: #333;
     color: #fff;
@@ -25,6 +29,9 @@ header h1{
     margin: 0;
     padding: 0;
     grid-column: 1;
+}
+
+header h1 a {
     color : red;
 }
 
@@ -49,10 +56,8 @@ nav li {
 }
 
 nav a{
-    text-decoration: none;
     color : white;
     font-size: 1.3em;
-    text-decoration: none;
     line-height: 50px;
     padding: 5px 15px;
     opacity: 0.7;
@@ -84,13 +89,8 @@ input{
 
 input[type=button], input[type=submit], input[type=reset] {
     cursor:pointer;
-	border-radius:10px;
-	padding:10px;
-	margin:20px;
 	background-color: #013AD1;
 	color: white;
-	border:none;
-	font-size:15px;
 }
 
 input[type=submit]:hover{
@@ -101,9 +101,7 @@ input[type=submit]:hover{
 
 #redirection p a{
 	color:blue;
-	text-decoration: none;
 	border-radius:5px;
-
 }
 
 #redirection p a:hover{
