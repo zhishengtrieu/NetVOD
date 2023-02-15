@@ -105,7 +105,7 @@ class Serie{
         $serie->img = $res[0]['img'];
 
         foreach ($res as $episode){
-            $serie->ajouterEpisode(Episode::find((int)$episode['id']));
+            $serie->ajouterEpisode(Episode::find((int) $episode['id']));
         }
 
         //on recupere les genres et publics vises

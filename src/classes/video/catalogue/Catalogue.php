@@ -5,21 +5,22 @@
 namespace netvod\video\catalogue;
 use netvod\exception\InvalidPropertyNameException;
 use netvod\video\serie\Serie;
+use netvod\db\ConnectionFactory;
+use PDO;
 class Catalogue{
 
     private array $series;
 
     public function __construct(){
+        ConnectionFactory::makeConnection();
         $this->series = array();
         $query = "select id,titre from serie";
         $st = ConnectionFactory::$db->prepare($query);
         $st->execute();
-        //pour chaque titre et id on créer une serie puis on l'ajoute au catalogue
+        //pour chaque id on l'ajoute la serie au catalogue
         foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            $id = $row['id'];
-            $titre = $row['titre'];
-            $serie = new Serie(intval($id),$titre);
-            $catalogue->ajouterSerie($serie);
+            $id = (int) $row['id'];
+            $this->ajouterSerie(Serie::find($id));
         }
     }
 

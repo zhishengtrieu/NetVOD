@@ -1,22 +1,16 @@
 <?php
-
 declare(strict_types=1);
 namespace netvod\action;
-
 use netvod\render\CatalogueRenderer;
 use netvod\render\Renderer;
 use netvod\video\serie\Serie;
 use netvod\video\catalogue\Catalogue;
-use netvod\db\ConnectionFactory;
 use netvod\video\tris\SelecteurTri;
-use PDO;
-
 
 class DisplayCatalogueAction extends Action{
 
     //fonction permettant d'affciher le catalogue
     public function execute(): string{
-        ConnectionFactory::makeConnection();
         $res = "";
         if ($this->http_method == 'GET') {
             if (isset($_SESSION['user'])) {
