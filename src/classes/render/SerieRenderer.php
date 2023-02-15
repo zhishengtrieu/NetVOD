@@ -32,9 +32,7 @@ class SerieRenderer implements Renderer{
         $html = "
         <div class='serie'>
             <a href='?action=display-liste-episodes&id=$serie->id'>
-                <div class='serie_title'>
-                    {$this->serie->titre}
-                </div>
+                <h3>{$this->serie->titre}</h3>
                 <img src='img/{$this->serie->img}' height='300' width='400'>
             </a>
         </div>
@@ -46,11 +44,19 @@ class SerieRenderer implements Renderer{
     private function renderLong():string{
         //affichage du titre, du descriptif, de l'annee de sortie, de la date d'ajout, du nombre d'episode, et de la note moyenne
         $html = "<h1>{$this->serie->titre}</h1>
-        <h2>{$this->serie->descriptif}</h2>
-        <h3>Date de sortie : {$this->serie->annee}</h3>
-        <h3>Date d'ajout : {$this->serie->dateAjout}</h3>
-        <h3>Nombre d'épisodes : {$this->serie->nbEpisodes}</h3>
-        <h3>Note moyenne : {$this->serie->calculerMoyenneNote()}</h3>";
+        <h4>{$this->serie->descriptif}</h4>";
+
+        
+        // on affiches les genres et les publics de la serie
+        $html.= "
+            <h4>Date de sortie : {$this->serie->annee}</h4>
+            <h4>Date d'ajout : {$this->serie->dateAjout}</h4>
+            <h4>Nombre d'épisodes : {$this->serie->nbEpisodes}</h4>
+            <h4>Note moyenne : {$this->serie->calculerMoyenneNote()}</h4>
+            <h4>Genres : " . implode(", ", $this->serie->genres) . "</h4>
+            <h4>Public : " . implode(", ", $this->serie->public) . "</h4>
+        ";
+
         //formualire du bouton pour afficher les commentaires de la serie
         $html.= <<<END
         <form action="?action=display-comment" method="POST">
@@ -58,11 +64,7 @@ class SerieRenderer implements Renderer{
             <input type ="submit" value="Voir les commentaires">
         </form>
         END;
-        // on affiches les genres et les publics de la serie
-        $html.= "<h3>Genres : ";
-        $html .= implode(", ", $this->serie->genres) . "</h3>
-        <h3>Public : ";
-        $html .= implode(", ", $this->serie->public) . "</h3>";
+
         //on doit permettre a l'user d'ajouter ou retirer la serie a ses favoris
         $user = unserialize($_SESSION['user']);
         //on verifie si la serie est deja dans les favoris de l'user

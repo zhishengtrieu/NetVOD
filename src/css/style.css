@@ -15,7 +15,6 @@ body{
 a{
     text-decoration: none;
     color: #333;
-    
 }
 
 li {
@@ -84,7 +83,7 @@ nav li:hover {
     text-align: center;
 }
 
-input, select{
+input, select, button{
 	border-radius:10px;
 	padding:10px;
 	margin:20px;
@@ -92,33 +91,48 @@ input, select{
 	font-size:15px;
 }
 
-input[type=button], input[type=submit], input[type=reset] {
+input[type=button], input[type=submit], input[type=reset] , button{
     cursor:pointer;
 	background-color: #013AD1;
 	color: white;
 }
 
-input[type=submit]:hover{
+input[type=submit]:hover, input[type=reset]:hover, button:hover{
 	background-color: red;
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
 	transform:scale(1.1,1.1);
 }
 
-#redirection p a{
+#redirection a{
 	color:blue;
 	border-radius:5px;
 }
 
-#redirection p a:hover{
+#redirection a:hover{
 	color:red;
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
-.serie{
+.serie, .episode{
     background-color: gray;
-    color: red;
-    padding: 20px;
+    width: 40%;
+    padding: 10px;
     border-radius: 10px;
     margin: 10px;
     display: inline-block;
+}
+
+h3{
+    color: blue;
+    font-size: 1.5em;
+}
+
+img{
+    width: 80%;
+    height: auto;
+}
+
+button a{
+    color: white;
+    text-decoration: none;
 }

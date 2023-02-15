@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace netvod\action;
 use netvod\render\CatalogueRenderer;
-use netvod\render\Renderer;
 use netvod\video\serie\Serie;
 use netvod\video\catalogue\Catalogue;
 use netvod\video\tris\SelecteurTri;

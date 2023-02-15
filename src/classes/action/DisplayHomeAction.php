@@ -13,31 +13,34 @@ use netvod\render\SerieRenderer;
 use netvod\render\EpisodeRenderer;
 use netvod\user\User;
 use netvod\exception\AccessControlException;
-use netvod\video\serie\Serie;
+use netvod\auth\Auth;
 
 class DisplayHomeAction{
     public function execute(): string{
         $res = "";
         if (isset($_SESSION['user'])){
-            $user = unserialize($_SESSION['user']);
-            $res .= "
-            <p>Vous êtes connecté en tant que $user->email.</p>
-            <h1>Ma liste de séries préférées</h1>";
-            foreach($user->VideosPreferees as $serie){
-                $render = new SerieRenderer($serie);
-                $res .= $render->render(Renderer::COMPACT);
-            }
-            $res .= "<h1>Ma liste de séries en cours</h1>";
-            foreach($user->VideosEnCours as $serie_id => $episode){
-                $serie = Serie::find($serie_id);
-                $res .= "<p>$serie->titre - Episode en cours : $episode->numero</p>";
-                $render = new EpisodeRenderer($episode);
-                $res .= $render->render(Renderer::COMPACT);
-            }
-            $res .= "<h1>Ma liste de séries terminées</h1>";
-            foreach ($user->VideosVisionnees as $serie){
-                $render = new SerieRenderer($serie);
-                $res .= $render->render(Renderer::COMPACT);
+            try {
+                Auth::checkAccessLevel(USER::NORMAL_USER);
+                $user = unserialize($_SESSION['user']);
+                $res .= "
+                <p>Vous êtes connecté en tant que $user->email.</p>
+                <h1>Ma liste de séries préférées</h1>";
+                foreach($user->VideosPreferees as $serie){
+                    $render = new SerieRenderer($serie);
+                    $res .= $render->render(Renderer::COMPACT);
+                }
+                $res .= "<h1>Ma liste de séries en cours</h1>";
+                foreach($user->VideosEnCours as $serie_id => $episode){
+                    $render = new EpisodeRenderer($episode);
+                    $res .= $render->render(Renderer::COMPACT);
+                }
+                $res .= "<h1>Ma liste de séries terminées</h1>";
+                foreach ($user->VideosVisionnees as $serie){
+                    $render = new SerieRenderer($serie);
+                    $res .= $render->render(Renderer::COMPACT);
+                }
+            } catch (AccessControlException $e) {
+                $res .= $e->getMessage() . "<br>Il faut d'abord activer votre compte";
             }
         }else{
             $res = "Vous devez vous connecter pour accéder à votre profil";

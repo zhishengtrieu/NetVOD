@@ -29,13 +29,11 @@ class EpisodeRenderer implements Renderer{
         //affiche le titre en mode lien et la video
         $html = "
         <div class='episode'>
-            <div class='episode_title'>
-                <h3>
-                    <a href='?action=display-episode&id={$this->episode->id}'>{$this->episode->titre}</a>
-                </h3>
-            </div>
-            <p>Episode : {$this->episode->numero}, durée : {$this->episode->duree} minutes</p>
-            <img src='img/{$this->episode->img}' height='300' width='400'>
+            <a href='?action=display-episode&id={$this->episode->id}'>
+                <h3>{$this->episode->titre}</h3>
+                <p>Episode : {$this->episode->numero}, durée : {$this->episode->duree} minutes</p>
+                <img src='img/{$this->episode->img}'>
+            </a>
         </div>";
         return $html;
     }
@@ -44,15 +42,12 @@ class EpisodeRenderer implements Renderer{
     private function renderLong():string{
         //affiche le titre de l'episode, le resume, la duree, et la video d'un episode
         $html = "
-        <div class='episode'>
-            <div class='episode_title'>
                 <h3>{$this->episode->titre}</h3>
                 <h4>{$this->episode->resume}</h4>
                 <p>L'episode dure: {$this->episode->duree} minutes</p>
                 <video controls width=\"600\">
                     <source src=\"video/{$this->episode->path}\" type=\"video/mp4\">
                 </video>
-        </div>
         ";
         //on selectionne l'id de la serie correspondant a l'id de l'episode
         $query = "select serie_id from episode where id = ?";

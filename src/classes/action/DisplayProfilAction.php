@@ -5,8 +5,7 @@ namespace netvod\action;
 
 use netvod\db\ConnectionFactory;
 
-class DisplayProfilAction extends Action
-{
+class DisplayProfilAction extends Action{
 
     public function execute(): string
     {
@@ -69,18 +68,20 @@ class DisplayProfilAction extends Action
             } else {
                 $res = <<<END
                 <form action="?action=display-profil" method="POST">
-                <input type="text" name="nom" placeholder="Nom" value="$user->nom">
-                <input type="text" name="prenom" placeholder="Prenom" value="$user->prenom">
-                <select name='pref'>
-                    <option value="">Selectionner un genre préféré</option>
-                    <option value="action">Action</option>
-                    <option value="thriller">Thriller</option>
-                    <option value="anime">Anime</option>
-                    <option value="comedie">Comedie</option>
-                    <option value="romance">Romance</option>
-                    <option value="horreur">Horreur</option>
-                </select>
-                <input type="submit" value="valider">
+                    <label for="nom">Nom</label>
+                    <input type="text" name="nom" placeholder="Votre nom" value="$user->nom"><br>
+                    <label for="prenom">Prenom</label>
+                    <input type="text" name="prenom" placeholder="Votre prenom" value="$user->prenom"><br>
+                    <label for="pref">Genre préféré</label>
+                    <select name='pref'>
+                        <option value="action">Action</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="anime">Anime</option>
+                        <option value="comedie">Comedie</option>
+                        <option value="romance">Romance</option>
+                        <option value="horreur">Horreur</option>
+                    </select><br>
+                    <input type="submit" value="valider">
                 </form>
                 <form action="?action=logout" method="POST">
                     <input type="submit" value="Se déconnecter">
@@ -89,7 +90,7 @@ class DisplayProfilAction extends Action
                 
             }
         }else{
-            $res="Veuillez-vous connecter !";
+            $res="<button><a href='?action=signin'>Veuillez-vous connecter !</a></button>";
         }
         return $res;
     }

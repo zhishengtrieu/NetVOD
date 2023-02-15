@@ -24,6 +24,7 @@ class User{
     private array $VideosVisionnees;
     private array $VideosEnCours;
     private int $role;
+    private int $idGenre; 
 
     /**
      * Constructeur de la classe User
@@ -39,6 +40,7 @@ class User{
         //la liste va associer la serie en cours a l'episode courant
         $this->VideosEnCours = array();
         $this->update();
+        $this->idGenre = 1;
     }
 
     /**
