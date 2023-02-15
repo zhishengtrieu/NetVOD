@@ -14,6 +14,18 @@ body{
 
 a{
     text-decoration: none;
+    color: #333;
+    
+}
+
+li {
+    color: red;
+    list-style-type: none;
+    padding: 0px;
+    height: 50px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    display: inline-block;
 }
 
 header{
@@ -46,14 +58,6 @@ nav ul {
 
 }
 
-nav li {
-    list-style-type: none;
-    padding: 0px;
-    height: 50px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    display: inline-block;
-}
 
 nav a{
     color : white;
@@ -77,9 +81,10 @@ nav li:hover {
     border-radius:10px;
     padding: 20px;
     margin-top: 5%;
+    text-align: center;
 }
 
-input{
+input, select{
 	border-radius:10px;
 	padding:10px;
 	margin:20px;
@@ -107,4 +112,13 @@ input[type=submit]:hover{
 #redirection p a:hover{
 	color:red;
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+.serie{
+    background-color: gray;
+    color: red;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    display: inline-block;
 }

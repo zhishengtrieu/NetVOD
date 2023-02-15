@@ -29,13 +29,16 @@ class SerieRenderer implements Renderer{
         //on cherche un serie par rapport a son id
         $serie = Serie::find($this->serie->id);
         // affichage du titre de la serie et son image
-        $html = "<a href='?action=display-liste-episodes&id=$serie->id'>
+        $html = "
         <div class='serie'>
-            <div class='serie_title'>
-                <li>{$this->serie->titre}</li>
-            </div>
-            <img src='img/$serie->img' height='300' width='400'>
-        </div></a>";
+            <a href='?action=display-liste-episodes&id=$serie->id'>
+                <div class='serie_title'>
+                    {$this->serie->titre}
+                </div>
+                <img src='img/{$this->serie->img}' height='300' width='400'>
+            </a>
+        </div>
+        ";
         return $html;
     }
 

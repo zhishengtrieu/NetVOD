@@ -21,16 +21,6 @@ class DisplayCatalogueAction extends Action{
         if ($this->http_method == 'GET') {
             if (isset($_SESSION['user'])) {
                     $catalogue = new Catalogue();
-                    $query = "select id,titre from serie";
-                    $st = ConnectionFactory::$db->prepare($query);
-                    $st->execute();
-                    //pour chaque titre et id on créer une serie puis on l'ajoute au catalogue
-                    foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $row) {
-                        $id = $row['id'];
-                        $titre = $row['titre'];
-                        $serie = new Serie(intval($id),$titre);
-                        $catalogue->ajouterSerie($serie);
-                    }
                     $res .= (new CatalogueRenderer($catalogue))->render();
             }else{
                 $res .= 'Il faut se connecter avant de consulter les series du catalogue';

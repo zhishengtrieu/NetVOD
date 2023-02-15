@@ -11,6 +11,16 @@ class Catalogue{
 
     public function __construct(){
         $this->series = array();
+        $query = "select id,titre from serie";
+        $st = ConnectionFactory::$db->prepare($query);
+        $st->execute();
+        //pour chaque titre et id on créer une serie puis on l'ajoute au catalogue
+        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $id = $row['id'];
+            $titre = $row['titre'];
+            $serie = new Serie(intval($id),$titre);
+            $catalogue->ajouterSerie($serie);
+        }
     }
 
     public function ajouterSerie(Serie $serie){

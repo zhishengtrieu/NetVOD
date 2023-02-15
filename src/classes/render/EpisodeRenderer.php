@@ -31,15 +31,11 @@ class EpisodeRenderer implements Renderer{
         <div class='episode'>
             <div class='episode_title'>
                 <h3>
-                    <li>
                     <a href='?action=display-episode&id={$this->episode->id}'>{$this->episode->titre}</a>
-                    </li>
                 </h3>
-                <p>Episode : {$this->episode->numero}, durée : {$this->episode->duree} minutes</p>
-                <video controls width='300'>
-                    <source src='video/{$this->episode->path}' type='video/mp4'>
-                </video>
             </div>
+            <p>Episode : {$this->episode->numero}, durée : {$this->episode->duree} minutes</p>
+            <img src='img/{$this->episode->img}' height='300' width='400'>
         </div>";
         return $html;
     }

@@ -12,10 +12,11 @@ class Episode{
     private string $resume;
     private int $duree;
     private string $path;
+    private string $img;
     private int $idSerie;
 
     //Constructeur de la classe Episode
-    public function __construct(int $id, int $numero, string $titre, string $resume, int $duree, string $path, int $serieId){
+    public function __construct(int $id, int $numero, string $titre, string $resume, int $duree, string $path, string $img, int $serieId){
         $this->id = $id;
         $this->numero = $numero;
         $this->titre = $titre;
@@ -23,6 +24,7 @@ class Episode{
         $this->duree = $duree;
         $this->path = $path;
         $this->idSerie = $serieId;
+        $this->img = $img;
     }
 
     //Setter de la classe Episode
@@ -56,7 +58,7 @@ class Episode{
         $stmt->execute();
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         $episode = new Episode((int) $row["id"], (int) $row["numero"], 
-        $row["titre"], $row["resume"], (int) $row["duree"], $row["file"], (int) $row["serie_id"]);
+        $row["titre"], $row["resume"], (int) $row["duree"], $row["file"], $row["img"], (int) $row["serie_id"]);
         return $episode;
     }
 

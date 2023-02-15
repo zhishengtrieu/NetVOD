@@ -34,6 +34,7 @@ class Serie{
         $this->dateAjout = "";
         $this->nbEpisodes = 0;
         $this->episodes = array();
+        $this->img = "";
     }
 
     /**
@@ -90,7 +91,7 @@ class Serie{
      * Permet de retrouver une serie a partir de son id et d'en retourner l'objet
      */
     public static function find(int $id) : Serie{
-        $sql = "Select serie_id, serie.titre, descriptif,img, annee, date_ajout, episode.id from serie
+        $sql = "Select serie_id, serie.titre, descriptif,serie.img, annee, date_ajout, episode.id from serie
         inner join episode on serie.id = episode.serie_id
         where serie_id = $id";
         ConnectionFactory::makeConnection();
