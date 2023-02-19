@@ -28,6 +28,10 @@ class Catalogue{
         $this->series[] = $serie;
     }
 
+    public function viderCatalogue(){
+        $this->series = array();
+    }
+
     public function __get($attribut){
         if (property_exists($this, $attribut)){
             return $this->$attribut;
