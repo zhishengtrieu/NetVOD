@@ -6,6 +6,6 @@ class TriNbPetitEpisode extends Tri{
     public function __construct(){
         $this->query = "SELECT serie.id, count(episode.id) FROM serie 
                 inner join episode on serie.id = episode.serie_id 
-                group by serie.id,titre order by count(episode.id) asc";
+                group by serie.id order by count(episode.id) asc";
     }
 }
