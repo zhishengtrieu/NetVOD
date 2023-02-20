@@ -30,6 +30,7 @@ class User{
      * Constructeur de la classe User
      */
     public function __construct(string $email, string $password, int $role){
+        //on definit les par defaut
         $this->email = $email;
         $this->nom = "";
         $this->prenom = "";
@@ -41,6 +42,24 @@ class User{
         $this->VideosEnCours = array();
         $this->update();
         $this->idGenre = 1;
+        //on met a jour l'user selon son email
+        try{
+            ConnectionFactory::makeConnection();
+            $sql = "SELECT * FROM user WHERE email = '$email'";
+            $stmt = ConnectionFactory::$db->prepare($sql);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($row){
+                $this->email = $row['email'];
+                $this->nom = $row['nom'];
+                $this->prenom = $row['prenom'];
+                $this->password = $row['passwd'];
+                $this->role = (int) $row['role'];
+                $this->idGenre = (int) $row['id_genre'];
+            }
+        }catch(\Exception $e){
+            echo $e->getMessage();
+        }
     }
 
     /**
