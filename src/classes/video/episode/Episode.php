@@ -58,11 +58,8 @@ class Episode{
         $stmt->execute();
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         $episode = new Episode((int) $row["id"], (int) $row["numero"], 
-        $row["titre"], $row["resume"], (int) $row["duree"], $row["file"], $row["img"], (int) $row["serie_id"]);
+        $row["titre"], $row["resume"], (int) $row["duree"], $row["file"], $row["img"] ?? '', (int) $row["serie_id"]);
         return $episode;
     }
-
-
-
 }
 ?>
